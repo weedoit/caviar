@@ -1,0 +1,21 @@
+{
+  "name": "so-fast-gap",
+  "version": "0.0.0",
+  "description": "A template for PhoneGap applications using FastGap's teachings",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/brunoziie/so-fast-gap"
+  },
+  "keywords": [
+    "app",
+    "phonegap",
+    "template"
+  ],
+  "author": "Bruno Ziiê",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brunoziie/so-fast-gap/issues"
+  },
+  "homepage": "https://github.com/brunoziie/so-fast-gap"
+}

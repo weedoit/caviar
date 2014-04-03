@@ -1,0 +1,28 @@
+{
+  "name": "so-fast-gap",
+  "version": "0.0.0",
+  "homepage": "https://github.com/brunoziie/so-fast-gap",
+  "authors": [
+    "brunoziie <eu@brunoziie.com>"
+  ],
+  "keywords": [
+    "app",
+    "phonegap",
+    "template"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "rivets": "~0.6.7",
+    "zepto": "~1.1.3",
+    "fastclick": "~1.0.1",
+    "snapjs": "*",
+    "requirejs": "~2.1.11"
+  }
+}
