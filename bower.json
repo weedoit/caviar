@@ -19,9 +19,10 @@
     "tests"
   ],
   "dependencies": {
-    "rivets": "~0.6.7",
+    "requirejs": "~2.1.11",
+    "zepto-full": "~1.1.2",
+    "vue": "~0.10.3",
     "fastclick": "~1.0.1",
-    "snapjs": "*",
-    "requirejs": "~2.1.11"
+    "snapjs": "*"
   }
 }

@@ -69,7 +69,5 @@ define('SFG.Intent', function () {
 		this.action = splits[1] || null;
 	};
 
-
-
 	return Intent;
 });
