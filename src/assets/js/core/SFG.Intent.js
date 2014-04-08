@@ -19,6 +19,8 @@ define('SFG.Intent', function () {
 	 */
 	Intent.prototype.controller = null;
 
+	Intent.prototype.controllerInstanceId = null;	
+
 	/**
 	 * When not null will calls a action from current instance controller 
 	 * @type {string}
