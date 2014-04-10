@@ -3,16 +3,10 @@ define('SFG.LayoutLoader', function () {
 
 	LayoutLoader.load = function (controllerName, callback) {
 		var filename = controllerName.replace('Controller', '').replace(/([a-z])([A-Z])/g, '$1_$2').toLowerCase();
-
-		if (typeof loadedLayouts[filename] === 'undefined') {
-			loadedLayouts[filename] = true;
-			this.getLayoutFile(filename, callback);
-		}
-
-		return $('script#import_' + filename);
+		this.getLayoutFile(filename, callback);
 	};
 
-	LayoutLoader.getLayoutFile = function (filename) {
+	LayoutLoader.getLayoutFile = function (filename, callback) {
 		var path = 'assets/layouts/' + filename + '.html';
 		$.get(path, callback);
 	};
@@ -22,10 +16,32 @@ define('SFG.LayoutLoader', function () {
 
 
 
+define('AppController', ['SFG', 'SFG.Controller'], function (SFG, Controller) {
+	return SFG.extend(Controller, {
+
+
+
+	});
+});
+
+
+
 var foo;
 
-require(['SFG.LayoutLoader'], function (LayoutLoader) {
+require(['SFG', 'SFG.LayoutLoader', 'SFG.Controller'], function (SFG, LayoutLoader, Controller) {
 
-	foo = LayoutLoader.load('MainController');
+	foo = LayoutLoader.load('MainController', function () {});
+
+
+
+
+	require(['AppController'], function (AppController) {
+
+
+		console.dir(this);
+
+		console.dir(new AppController);
+
+	});
 
 });

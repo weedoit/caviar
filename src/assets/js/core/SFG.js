@@ -45,5 +45,7 @@ define('SFG', function () {
 		return extended;
 	};
 
+	SFG.contentBox = $('#content');
+
 	return SFG;
 });

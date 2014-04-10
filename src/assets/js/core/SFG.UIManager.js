@@ -1,20 +1,12 @@
 define('SFG.UIManager', function () {
 	var UIManager = {};
 
-	
-	UIManager.loadLayout = function (layout, callback) {
+
+	UIManager.actionTransition = function (view, action) {
 
 	};
 
-	UIManager.actionTransition = function (to) {
-
-	};
-
-	UIManager.controllerTransitionOut = function () {
-
-	};
-
-	UIManager.controllerTransitionIn = function () {
+	UIManager.controllerTransition = function (view) {
 
 	};
 

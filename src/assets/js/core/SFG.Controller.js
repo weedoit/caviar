@@ -4,10 +4,14 @@
  * @module SFG.Controller
  * @author Bruno Ziiê <http://github.com/brunoziie/>
  */
-define('SFG.Controller', function () {
+define('SFG.Controller', ['SFG.LayoutLoader'], function (LayoutLoader) {
 	var Controller;
 
 	Controller = {
+		name: null,
+
+		view: null,
+
 		data: {},
 
 		/**
@@ -42,6 +46,17 @@ define('SFG.Controller', function () {
 		 */
 		set: function (key, value) {
 			this.data[key] = value;
+		},
+
+		loadResources: function (callback) {
+			LayoutLoader.load(this.name, callback);
+		},
+
+		unloadResources: function () {
+			if (this.view !== null) {
+				this.view.remove();
+				this.data = null;
+			}
 		}
 	};
 

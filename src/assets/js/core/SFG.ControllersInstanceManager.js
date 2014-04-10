@@ -1,4 +1,4 @@
-define('SFG.ControllersInstanceManager', function () {
+define('SFG.ControllersInstanceManager', 'SFG', function (SFG) {
 	var seq = 0,
 		getSequence,
 		colletion = {},
@@ -21,12 +21,27 @@ define('SFG.ControllersInstanceManager', function () {
 		var sequence = getSequence();
 
 		require([controllerName], function (ControllerClass) {
-			colletion[sequence] = new ControllerClass();
-			return sequence;
+			var instance = new ControllerClass();
+
+			instance.name = controllerName;
+			instance.loadResources(function (layoutData) {
+				var viewId = sequence +  '_view';
+					el = '<div id="' + viewId + '"></div>',
+					view;
+
+				SFG.contentBox.append(el);
+				view = $(viewId);
+				view.html(layoutData);
+				instance.view = view;
+
+				colletion[sequence] = instance;
+				callback(sequence);
+			});
 		});
 	};
 
 	ControllersInstanceManager.destroy = function (key) {
+		colletion[key].unloadResources();
 		delete colletion[key];
 	};
 
