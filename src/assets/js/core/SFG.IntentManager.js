@@ -3,7 +3,6 @@ define(
 	['SFG.Intent', 'SFG.IntentHistory', 'SFG.ControllersInstanceManager','SFG.UIManager'], 
 	function (Intent, IntentHistory, ControllersInstanceManager, UIManager) {
 		var INDEX = 0,
-			Historic = [],
 			IntentManager = {}; 
 
 		IntentManager.getIndex = function () {
@@ -27,7 +26,7 @@ define(
 						after = evt.newURL.split('#')[1];
 
 					if (parseInt(before, 10) > parseInt(after, 10)) {
-						return IntentManager.destroy(IntentHistory.removeLast());
+						return IntentManager.back();
 					}
 				} catch (ex) {}
 			}, false);
@@ -41,6 +40,8 @@ define(
 					intent.controllerInstanceId = prevIntent.controllerInstanceId;
 					this.invokeControllerAction(intent);
 					return;
+				} else {
+					
 				}
 			}
 
@@ -51,6 +52,31 @@ define(
 				controllerInstance = ControllersInstanceManager.get(instanceId);
 				UIManager.controllerTransition(controllerInstance.view);
 			});
+		};
+
+		IntentManager.back = function () {
+			var prevIntent = IntentHistory.getPrev(),
+				currentIntent = IntentHistory.getCurrent(),
+				controllerInstance;
+
+			if (prevIntent === null) {
+				return;
+			}
+			
+			// continue here
+			controllerInstance = ControllersInstanceManager.get(intent.controllerInstanceId);
+			controllerInstance[intent.action](intent);
+
+			if (prevIntent.controller === currentIntent.controller) {
+				UIManager.actionTransition(prevIntent.action); 
+			} else {
+				UIManager.controllerTransitionOut();
+			}
+
+			return true;
+
+
+			IntentManager.destroy(IntentHistory.removeLast());
 		};
 
 		IntentManager.resume = function (intent, data) {

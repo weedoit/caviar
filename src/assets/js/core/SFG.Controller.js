@@ -8,6 +8,8 @@ define('SFG.Controller', ['SFG.LayoutLoader'], function (LayoutLoader) {
 	var Controller;
 
 	Controller = {
+		trasition: null,
+
 		name: null,
 
 		view: null,

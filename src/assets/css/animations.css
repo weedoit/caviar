@@ -1,0 +1,28 @@
+/**
+* MAIN CONTENT TRANSITIONS
+*/
+.transition {
+	-webkit-transition: all 0.2s ease;
+}
+
+.transition.fade {
+	opacity: 0;
+}
+
+.transition.slide-x {
+	-webkit-transform: translateX(100%);
+}
+
+.transition.scale {
+	-webkit-transform: scale(0.01);
+}
+
+.transition.rotate-x {
+	-webkit-transform: rotateY(180deg);
+	opacity: 0;
+}
+
+.transition.rotate-y {
+	-webkit-transform: rotateX(180deg);
+	opacity: 0;
+}

@@ -10,5 +10,13 @@ define('SFG.UIManager', function () {
 
 	};
 
+	UIManager.bindTransition = function (element, callback) {
+		element.one('webkitTransitionEnd transitionend MSTransitionEnd', callback);
+	};
+
+	UIManager.getActionElement = function (view, action) {
+		return view.find('.action[data-action="' + action + '"]');
+	};
+
 	return UIManager;
 });
