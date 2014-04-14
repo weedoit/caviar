@@ -12,15 +12,13 @@
 <body>
 	<div class="snap-drawers">
 		<aside class="side-menu full-height snap-drawer snap-drawer-left">
-			<h2>left</h2>
+			<h2 class="inner-text-shadow">Menu</h2>
 			<ul>
 				<li>
-					<a 
-						href="#" 
-						class="intent" 
-						data-intent="list_controller"
-						data-intent-forResults="false"
-					>List</a>
+					<a href="#" class="intent" data-intent="main" data-intent-forResults="false">Main</a>
+				</li>
+				<li>
+					<a href="#" class="intent" data-intent="contact" data-intent-forResults="false">Contact</a>
 				</li>
 			</ul>
 		</aside>
@@ -33,8 +31,7 @@
 		<header>
 			<h3>[so]fastGap</h3>
 		</header>
-		<section id="content">
-		</section>
+		<section id="content"></section>
 	</div>
 
 	<!-- LIBS -->
@@ -54,6 +51,9 @@
 	<script type="text/javascript" src="assets/js/core/SFG.IntentHistory.js"></script>
 	<script type="text/javascript" src="assets/js/core/SFG.IntentManager.js"></script>
 	<script type="text/javascript" src="assets/js/core/SFG.UIManager.js"></script>
+
+	<script type="text/javascript" src="assets/js/controllers/MainController.js"></script>
+	<script type="text/javascript" src="assets/js/controllers/ContactController.js"></script>
 
 	<script>
 		// Do the magical

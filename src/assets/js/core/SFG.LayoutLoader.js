@@ -13,35 +13,3 @@ define('SFG.LayoutLoader', function () {
 
 	return LayoutLoader;
 });
-
-
-
-define('AppController', ['SFG', 'SFG.Controller'], function (SFG, Controller) {
-	return SFG.extend(Controller, {
-
-
-
-	});
-});
-
-
-
-var foo;
-
-require(['SFG', 'SFG.LayoutLoader', 'SFG.Controller'], function (SFG, LayoutLoader, Controller) {
-
-	foo = LayoutLoader.load('MainController', function () {});
-
-
-
-
-	require(['AppController'], function (AppController) {
-
-
-		console.dir(this);
-
-		console.dir(new AppController);
-
-	});
-
-});

@@ -14,8 +14,21 @@ define('SFG.IntentHistory', ['SFG.Intent'], function (Intent) {
 		return colletion[colletion.length - 2] || null;
 	};
 
+	IntentHistory.remove = function (intent) {
+		var index = colletion.indexOf(intent);
+
+		if (index > -1) {
+			console.log(index);
+			colletion.splice(index, 1);
+		}
+	};
+
 	IntentHistory.removeLast = function () {
 		return colletion.pop();
+	};
+
+	IntentHistory.all = function () {
+		return colletion;
 	};
 
 	IntentHistory.clear = function () {

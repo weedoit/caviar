@@ -1,9 +1,10 @@
 define(
 	'SFG.IntentManager', 
-	['SFG.Intent', 'SFG.IntentHistory', 'SFG.ControllersInstanceManager','SFG.UIManager'], 
-	function (Intent, IntentHistory, ControllersInstanceManager, UIManager) {
+	['SFG', 'SFG.Intent', 'SFG.IntentHistory', 'SFG.ControllersInstanceManager','SFG.UIManager'], 
+	function (SFG, Intent, IntentHistory, ControllersInstanceManager, UIManager) {
 		var INDEX = 0,
-			IntentManager = {}; 
+			IntentManager = {},
+			CtrInstanceMgn = ControllersInstanceManager; 
 
 		IntentManager.getIndex = function () {
 			INDEX += 1;
@@ -14,7 +15,12 @@ define(
 			var $doc = $(document),
 				$window = $(window);
 
-			$doc.on('tap click', '.intent', function (e) {
+			$doc.on('click', '.intent', function (e) {
+				var snapper = SFG.globals.get('snapper');
+				if (snapper !== null) {
+					snapper.close();
+				}
+
 				IntentManager.start(new Intent(this));
 				window.location.hash = IntentManager.getIndex();
 				e.preventDefault();
@@ -22,87 +28,126 @@ define(
 
 			window.addEventListener('hashchange', function (evt) {
 				try {
-					var before = evt.oldURL.split('#')[1],
-						after = evt.newURL.split('#')[1];
+					var before = evt.oldURL.split('#')[1] || 0,
+						after = evt.newURL.split('#')[1] || 0;
 
 					if (parseInt(before, 10) > parseInt(after, 10)) {
+						console.log('backing...');
 						return IntentManager.back();
-					}
+					} 
 				} catch (ex) {}
 			}, false);
 		};
 
 		IntentManager.start = function (intent) {
-			var prevIntent = IntentHistory.getPrev();
+			var prevIntent;
+
+			IntentHistory.add(intent);
+			prevIntent = IntentHistory.getPrev();
 
 			if (prevIntent !== null) {
 				if (prevIntent.controller === intent.controller) {
 					intent.controllerInstanceId = prevIntent.controllerInstanceId;
 					this.invokeControllerAction(intent);
 					return;
-				} else {
-					
 				}
 			}
 
-			ControllersInstanceManager.create(intent.controller, function (instanceId) {
-				var controllerInstance;
-				intent.controllerInstanceId = instanceId;
+			CtrInstanceMgn.create(intent.controller, function (instanceId) {
+				var prevCtrInstance = (prevIntent !== null) ? CtrInstanceMgn.get(prevIntent.controllerInstanceId) : null,
+					nextCtrInstance,
+					args;
 
-				controllerInstance = ControllersInstanceManager.get(instanceId);
-				UIManager.controllerTransition(controllerInstance.view);
+				intent.controllerInstanceId = instanceId;
+				nextCtrInstance = CtrInstanceMgn.get(instanceId);
+
+				args = {
+					prev: {
+						intent: prevIntent,
+						controllerInstance: prevCtrInstance
+					},
+					next: {
+						intent: intent,
+						controllerInstance: nextCtrInstance
+					}
+				};
+
+				UIManager.controllerTransition(args, function () {
+					if (!intent.forResult && prevIntent !== null) {
+						prevCtrInstance.unloadResources();
+					}
+				});
 			});
 		};
 
 		IntentManager.back = function () {
 			var prevIntent = IntentHistory.getPrev(),
 				currentIntent = IntentHistory.getCurrent(),
-				controllerInstance;
+				currentCtrInstance = CtrInstanceMgn.get(currentIntent.controllerInstanceId),
+				keepResources = false,
+				prevCtrInstance,
+				args;
 
 			if (prevIntent === null) {
 				return;
 			}
-			
-			// continue here
-			controllerInstance = ControllersInstanceManager.get(intent.controllerInstanceId);
-			controllerInstance[intent.action](intent);
 
 			if (prevIntent.controller === currentIntent.controller) {
-				UIManager.actionTransition(prevIntent.action); 
+				keepResources = true;
+
+				UIManager.actionTransition(currentCtrInstance, prevIntent.action, function() {
+					IntentManager.destroy(prevIntent, keepResources);
+				});
 			} else {
-				UIManager.controllerTransitionOut();
-			}
+				prevCtrInstance = CtrInstanceMgn.get(prevIntent.controllerInstanceId);
+				args = {
+					prev: {
+						intent: currentIntent,
+						controllerInstance: currentCtrInstance
+					},
+					next: {
+						intent: prevIntent,
+						controllerInstance: prevCtrInstance
+					}
+				};
 
-			return true;
-
-
-			IntentManager.destroy(IntentHistory.removeLast());
-		};
-
-		IntentManager.resume = function (intent, data) {
-
-		};
-
-		IntentManager.destroy = function (intent) {
-			var prevIntent = IntentHistory.getPrev(),
-				currentIntent = IntentHistory.getCurrent();
-
-			if (prevIntent !== null) {
-				if (prevIntent.controller === currentIntent.controller) {
-					UIManager.actionTransition(prevIntent.action); 
+				if (!prevIntent.forResult) {
+					CtrInstanceMgn.restore(prevCtrInstance, function () {
+						UIManager.controllerTransition(args, function () {
+							IntentManager.destroy(currentIntent, keepResources);
+						});
+					});
 				} else {
-					UIManager.controllerTransitionOut();
+					UIManager.controllerTransition(args, function () {
+						IntentManager.destroy(currentIntent, keepResources);
+					});
 				}
 			}
 
 			return true;
 		};
 
+		IntentManager.resume = function (intent, data) {
+
+		};
+
+		IntentManager.destroy = function (intent, keepResources) {
+			var unloadResources = keepResources || false;
+
+			if (unloadResources === false) {
+				CtrInstanceMgn.get(intent.controllerInstanceId).unloadResources();
+			}
+
+			IntentHistory.remove(intent);
+		};
+
 		IntentManager.invokeControllerAction = function (intent) {
 			var controllerInstance;
-			controllerInstance = ControllersInstanceManager.get(intent.controllerInstanceId);
+
+
+			controllerInstance = CtrInstanceMgn.get(intent.controllerInstanceId);
 			controllerInstance[intent.action](intent);
-			UIManager.actionTransition(controllerInstance.view, intent.action);
+			UIManager.actionTransition(controllerInstance, intent.action);
 		};
 
 		IntentManager.setIntentResultHandler = function (intent) {

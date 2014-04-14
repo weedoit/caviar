@@ -1,4 +1,4 @@
-define('SFG.ControllersInstanceManager', 'SFG', function (SFG) {
+define('SFG.ControllersInstanceManager', ['SFG', 'SFG.UIManager'], function (SFG, UIManager) {
 	var seq = 0,
 		getSequence,
 		colletion = {},
@@ -25,18 +25,26 @@ define('SFG.ControllersInstanceManager', 'SFG', function (SFG) {
 
 			instance.name = controllerName;
 			instance.loadResources(function (layoutData) {
-				var viewId = sequence +  '_view';
-					el = '<div id="' + viewId + '"></div>',
-					view;
+				var view;
 
-				SFG.contentBox.append(el);
-				view = $(viewId);
-				view.html(layoutData);
+				view = UIManager.createViewElement(sequence, layoutData);
+				UIManager.initializeLayout(view);
+
 				instance.view = view;
-
 				colletion[sequence] = instance;
 				callback(sequence);
 			});
+		});
+	};
+
+	ControllersInstanceManager.restore = function (controllerInstance, callback) {
+		var sequence = getSequence();
+		
+		controllerInstance.loadResources(function (layoutData) {
+			var view = UIManager.createViewElement(sequence, layoutData);
+			UIManager.initializeLayout(view);
+			controllerInstance.view = view;
+			callback();
 		});
 	};
 

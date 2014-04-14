@@ -1,12 +1,12 @@
-define('SFG.Bootstrap', ['SFG', 'SFG.IntentManager'], function (SFG, IntentManager) {
+define('SFG.Bootstrap', ['SFG', 'SFG.IntentManager', 'SFG.Intent'], function (SFG, IntentManager, Intent) {
 	var Bootstrap;
 
 	Bootstrap = {};
 
 	Bootstrap.bootup = function () {
 		this.initializeMenus();
-
 		IntentManager.bindIntentElements();
+		IntentManager.start(new Intent('main#main'));
 	};
 
 	Bootstrap.initializeMenus = function (argument) {

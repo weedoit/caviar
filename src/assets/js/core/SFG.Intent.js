@@ -6,10 +6,13 @@ define('SFG.Intent', function () {
 	 * @param {Object} element DOM Element that calls a intent
 	 */
 	Intent = function (element) {
-		this.caller = element;
-
 		if (typeof element !== 'undefined') {
-			this.parseIntentElement(element);
+			if (typeof element === 'string') {
+				this.parseControllerAndActionsName(element);
+			} else if (typeof element === 'object') {
+				this.parseIntentElement(element);
+				this.caller = element;
+			}
 		}
 	};
 
@@ -25,7 +28,7 @@ define('SFG.Intent', function () {
 	 * When not null will calls a action from current instance controller 
 	 * @type {string}
 	 */
-	Intent.prototype.action = null;
+	Intent.prototype.action = 'main';
 
 	/**
 	 * Optional data to controller
@@ -54,21 +57,20 @@ define('SFG.Intent', function () {
 			intentData = $element.data('intent-data') || {};
 
 		this.data = intentData;
+		this.parseControllerAndActionsName($element.data('intent'));
 	};
 
 	/**
 	 * Parse controller name 
-	 * @param  {Object} $element Zepto object from calller element
 	 */
-	Intent.prototype.parseControllerAndActionsName = function ($element) {
-		var intent = $element.data('intent'),
-			splits = intent.split('#');
+	Intent.prototype.parseControllerAndActionsName = function (intentPath) {
+		var splits = intentPath.split('#');
 
 		this.controller = splits[0].replace(/^([a-z])|_([a-z])/g, function ($1) {
 			return $1.toUpperCase();
-		}).replace(/\s/, '') + 'Controller';
+		}).replace(/(\s|_)/, '') + 'Controller';
 
-		this.action = splits[1] || null;
+		this.action = splits[1] || 'main';
 	};
 
 	return Intent;

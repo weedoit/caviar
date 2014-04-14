@@ -8,7 +8,7 @@ define('SFG.Controller', ['SFG.LayoutLoader'], function (LayoutLoader) {
 	var Controller;
 
 	Controller = {
-		trasition: null,
+		transition: null,
 
 		name: null,
 
@@ -21,7 +21,7 @@ define('SFG.Controller', ['SFG.LayoutLoader'], function (LayoutLoader) {
 		 * @param {Object} intentData Object with data from intent
 		 * @return {void}
 		 */
-		initialize: function (intentData) {
+		initialize: function () {
 
 		},
 
@@ -51,6 +51,7 @@ define('SFG.Controller', ['SFG.LayoutLoader'], function (LayoutLoader) {
 		},
 
 		loadResources: function (callback) {
+			console.log('fired up: ' + this.name);
 			LayoutLoader.load(this.name, callback);
 		},
 
