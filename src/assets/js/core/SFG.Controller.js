@@ -4,64 +4,112 @@
  * @module SFG.Controller
  * @author Bruno Ziiê <http://github.com/brunoziie/>
  */
-define('SFG.Controller', ['SFG.LayoutLoader'], function (LayoutLoader) {
-	var Controller;
+define('SFG.Controller', 
+	['SFG.LayoutLoader', 'SFG.IntentManager', 'SFG.IntentHistory', 'SFG.ScopedEvents'],
+	function (LayoutLoader, IntentManager, IntentHistory, ScopedEvents) {
+		var Controller;
 
-	Controller = {
-		transition: null,
+		Controller = {
+			/**
+			 * Transition effect used by controller
+			 * @type {String}
+			 */
+			transition: null,
 
-		name: null,
+			/**
+			 * Controller name
+			 * @type {String}
+			 */
+			name: null,
 
-		view: null,
+			/**
+			 * Zepto object from controller layout
+			 * @type {Object}
+			 */
+			view: null,
 
-		data: {},
+			/**
+			 * Store data used by controller
+			 * @type {Object}
+			 */
+			data: {},
 
-		/**
-		 * Init controller's settings
-		 * @param {Object} intentData Object with data from intent
-		 * @return {void}
-		 */
-		initialize: function () {
+			/**
+			 * Init controller's settings
+			 * @param {Object} intentData Object with data from intent
+			 * @return {void}
+			 */
+			initialize: function () {
 
-		},
+			},
 
-		/**
-		 * Destroy controller's resources
-		 * @return {void}
-		 */
-		destroy: function () {
-			this.data = {};
-		},
+			/**
+			 * Destroy controller's resources
+			 * @return {void}
+			 */
+			destroy: function () {
+				this.data = {};
+			},
 
-		/**
-		 * Get a data stored on controller instance
-		 * @param  {String} key
-		 */
-		get: function (key) {
-			return this.data[key];
-		},
+			/**
+			 * Get a data stored on controller instance
+			 * @param  {String} key
+			 */
+			get: function (key) {
+				return this.data[key];
+			},
 
-		/**
-		 * Add/Update a data on controller
-		 * @param {String} key
-		 * @param {Mixed} value
-		 */
-		set: function (key, value) {
-			this.data[key] = value;
-		},
+			/**
+			 * Add/Update a data on controller
+			 * @param {String} key
+			 * @param {Mixed} value
+			 */
+			set: function (key, value) {
+				this.data[key] = value;
+			},
 
-		loadResources: function (callback) {
-			console.log('fired up: ' + this.name);
-			LayoutLoader.load(this.name, callback);
-		},
+			/**
+			 * Load controller resources
+			 * @param  {Function} callback
+			 * @return {void}
+			 */
+			loadResources: function (callback) {
+				LayoutLoader.load(this.name, callback);
+			},
 
-		unloadResources: function () {
-			if (this.view !== null) {
-				this.view.remove();
-				this.data = null;
-			}
-		}
-	};
+			/**
+			 * Destroy data and resources created by controller
+			 * @return {[type]} [description]
+			 */
+			unloadResources: function () {
+				if (this.view !== null) {
+					this.view.remove();
+					this.data = null;
+				}
+			},
 
-	return Controller;
-});
+			onResultHandler: function (data) {},
+
+			waitForResult: function (callback) {
+				this.onResultHandler = callback;
+			},
+
+			getViewByAction: function (action) {
+				return this.view.find('.action[data-action="' + action + '"]');
+			},
+
+			startIntent: function (intent) {
+				IntentManager.start(intent);
+			},
+
+			on: function (event, element, callback) {
+				var currentIntent = IntentHistory.getCurrent();
+				this.eventsScope.on(currentIntent.action, event, element, callback);
+			},
+
+			eventsScope: new ScopedEvents()
+		};
+
+		return Controller;
+	}
+);

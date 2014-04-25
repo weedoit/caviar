@@ -3,7 +3,6 @@ define('ContactController', ['SFG', 'SFG.Controller'], function (SFG, Controller
 		transition: null,
 
 		main: function (e) {
-			console.log(e);
 		}
 	});
 });

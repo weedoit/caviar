@@ -1,6 +1,5 @@
-define(
-	'SFG.IntentManager', 
-	['SFG', 'SFG.Intent', 'SFG.IntentHistory', 'SFG.ControllersInstanceManager','SFG.UIManager'], 
+define('SFG.IntentManager', 
+	['SFG', 'SFG.Intent', 'SFG.IntentHistory', 'SFG.ControllersInstanceManager', 'SFG.UIManager'], 
 	function (SFG, Intent, IntentHistory, ControllersInstanceManager, UIManager) {
 		var INDEX = 0,
 			IntentManager = {},
@@ -32,7 +31,6 @@ define(
 						after = evt.newURL.split('#')[1] || 0;
 
 					if (parseInt(before, 10) > parseInt(after, 10)) {
-						console.log('backing...');
 						return IntentManager.back();
 					} 
 				} catch (ex) {}
@@ -43,6 +41,7 @@ define(
 			var prevIntent;
 
 			IntentHistory.add(intent);
+			IntentManager.setIntentResultHandler(intent);
 			prevIntent = IntentHistory.getPrev();
 
 			if (prevIntent !== null) {
@@ -72,6 +71,7 @@ define(
 					}
 				};
 
+				nextCtrInstance[intent.action](intent);
 				UIManager.controllerTransition(args, function () {
 					if (!intent.forResult && prevIntent !== null) {
 						prevCtrInstance.unloadResources();
@@ -95,8 +95,8 @@ define(
 			if (prevIntent.controller === currentIntent.controller) {
 				keepResources = true;
 
-				UIManager.actionTransition(currentCtrInstance, prevIntent.action, function() {
-					IntentManager.destroy(prevIntent, keepResources);
+				UIManager.actionTransition(currentCtrInstance, prevIntent.action, function () {
+					IntentManager.destroy(currentIntent, keepResources);
 				});
 			} else {
 				prevCtrInstance = CtrInstanceMgn.get(prevIntent.controllerInstanceId);
@@ -128,23 +128,52 @@ define(
 		};
 
 		IntentManager.resume = function (intent, data) {
+			var prevIntent = IntentHistory.getPrev(),
+				currentIntent = intent,
+				currentCtrInstance = CtrInstanceMgn.get(currentIntent.controllerInstanceId),
+				prevCtrInstance = CtrInstanceMgn.get(prevIntent.controllerInstanceId),
+				keepResources = false,
+				args;
 
+			args = {
+				prev: {
+					intent: currentIntent,
+					controllerInstance: currentCtrInstance
+				},
+				next: {
+					intent: prevIntent,
+					controllerInstance: prevCtrInstance
+				}
+			};
+
+			prevCtrInstance.onResultHandler(data);
+
+			if (prevIntent.controller === currentIntent.controller) {
+				UIManager.actionTransition(currentCtrInstance, prevIntent.action, function () {
+					keepResources = true;
+					IntentManager.destroy(currentIntent, keepResources);
+				});
+			} else {
+				UIManager.controllerTransition(args, function () {
+					IntentManager.destroy(currentIntent, keepResources);
+				});
+			}
 		};
 
 		IntentManager.destroy = function (intent, keepResources) {
-			var unloadResources = keepResources || false;
+			var keepResources_ = keepResources || false,
+				controllerInstance = CtrInstanceMgn.get(intent.controllerInstanceId);
 
-			if (unloadResources === false) {
-				CtrInstanceMgn.get(intent.controllerInstanceId).unloadResources();
+			if (keepResources_ === false) {
+				controllerInstance.unloadResources();
 			}
 
+			controllerInstance.eventsScope.clearEvents(intent.action);
 			IntentHistory.remove(intent);
 		};
 
 		IntentManager.invokeControllerAction = function (intent) {
 			var controllerInstance;
-
-
 			controllerInstance = CtrInstanceMgn.get(intent.controllerInstanceId);
 			controllerInstance[intent.action](intent);
 			UIManager.actionTransition(controllerInstance, intent.action);

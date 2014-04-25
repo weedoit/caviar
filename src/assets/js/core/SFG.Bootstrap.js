@@ -1,35 +1,38 @@
-define('SFG.Bootstrap', ['SFG', 'SFG.IntentManager', 'SFG.Intent'], function (SFG, IntentManager, Intent) {
-	var Bootstrap;
+define('SFG.Bootstrap', 
+	['SFG', 'SFG.IntentManager', 'SFG.Intent'], 
+	function (SFG, IntentManager, Intent) {
+		var Bootstrap;
 
-	Bootstrap = {};
+		Bootstrap = {};
 
-	Bootstrap.bootup = function () {
-		this.initializeMenus();
-		IntentManager.bindIntentElements();
-		IntentManager.start(new Intent('main#main'));
-	};
+		Bootstrap.bootup = function () {
+			this.initializeMenus();
+			IntentManager.bindIntentElements();
+			IntentManager.start(new Intent('main#main'));
+		};
 
-	Bootstrap.initializeMenus = function (argument) {
-		var options = {
-				element: document.getElementById('stage'),
-				dragger: null,
-				disable: 'none',
-				addBodyClasses: true,
-				hyperextensible: true,
-				resistance: 0.5,
-				flickThreshold: 20,
-				transitionSpeed: 0.3,
-				easing: 'ease',
-				maxPosition: 266,
-				minPosition: -266,
-				tapToClose: true,
-				touchToDrag: true,
-				slideIntent: 40,
-				minDragDistance: 5
-			};
+		Bootstrap.initializeMenus = function (argument) {
+			var options = {
+					element: document.getElementById('stage'),
+					dragger: null,
+					disable: 'none',
+					addBodyClasses: true,
+					hyperextensible: true,
+					resistance: 0.5,
+					flickThreshold: 20,
+					transitionSpeed: 0.3,
+					easing: 'ease',
+					maxPosition: 266,
+					minPosition: -266,
+					tapToClose: true,
+					touchToDrag: true,
+					slideIntent: 40,
+					minDragDistance: 5
+				};
 
-		SFG.globals.set('snapper', new Snap(options));
-	};
+			SFG.globals.set('snapper', new Snap(options));
+		};
 
-	return Bootstrap;
-});
+		return Bootstrap;
+	}
+);

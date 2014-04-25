@@ -1,18 +1,22 @@
-define('MainController', ['SFG', 'SFG.Controller'], function (SFG, Controller) {
-	return SFG.extend(Controller, {
-		transition: null,
+define('MainController', 
+	['SFG', 'SFG.Controller', 'SFG.Intent', 'SFG.IntentManager'], 
+	function (SFG, Controller, Intent, IntentManager) {
+		return SFG.extend(Controller, {
+			transition: null,
 
-		main: function (e) {
-			console.log(e);
-		},
+			main: function (e) {
+				this.waitForResult(function (data) {
+				});
+			},
 
-		form: function (e) {
-			console.log(e);
-		},
+			timeline: function (intent) {
+				var view = this.getViewByAction('timeline'),
+					button = view.find('button');
 
-		list: function (e) {
-			console.log(e);
-		}
-
-	});
-});
+				this.on('click', button, function () {
+					intent.result({foo: 'Bar'});
+				});
+			}
+		});
+	}
+);
