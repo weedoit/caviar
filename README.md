@@ -27,12 +27,12 @@ so.fastgap is a template for PhoneGap applications created by [Weedo.it](http://
 4. Begin typing your magical code.
 
 ###need help?
-Take a look in the docs folder
+Take a look in the [docs folder](https://github.com/weedoit/so-fast-gap/tree/master/docs)
 
 ###want to contribute?
 
 1. Read our policies and code style.
-2. Fork it.
+2. [Fork it](https://github.com/weedoit/so-fast-gap/fork).
 3. Create a new branch with the feature or bug fix.
 4. Send a pull request. 
 

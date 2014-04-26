@@ -160,7 +160,7 @@ A primeira é ser representada por um elemento na tela que possua a class `inten
 
 ***data-intent-data*** *(opcional)*: Dados opcionais que poderão ser passados para a próxima tela.
 
-***data-intent-forResults*** *(opcional)*: Define se a tela que será exibida retornará algum informação para a tela atual. Os valores possíveis são `true` e `false`. Quando true, conserva a instancia do controller e os recursos da tela atual.
+***data-intent-forResults*** *(opcional)*: Define se a tela que será exibida retornará algum informação para a tela atual. Os valores possíveis são `true` ou `false`. Quando true, conserva a instancia do controller e os recursos da tela atual.
 
 ```html
 <button 
