@@ -54,9 +54,11 @@ define('SFG.Intent', function () {
 	 */
 	Intent.prototype.parseIntentElement = function(element) {
 		var $element = $(element),
-			intentData = $element.data('intent-data') || {};
+			intentData = $element.data('intent-data') || {},
+			intentForResult = $element.data('intent-forResults') || false;
 
 		this.data = intentData;
+		this.forResult = intentForResult;
 		this.parseControllerAndActionsName($element.data('intent'));
 	};
 
