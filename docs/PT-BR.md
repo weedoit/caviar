@@ -56,7 +56,7 @@ A estrutura básica do meu controller ficaria da seguinte forma:
 
 
 ```javascript
-# js/controllers/ContactsController.js
+/* js/controllers/ContactsController.js */
 
 define('ContactsController', ['SFG', 'SFG.Controller'], function (SFG, Controller) {
     return SFG.extend(Controller, {
@@ -123,7 +123,7 @@ Seguindo o exemplo do controller de contatos, adicionaremos mais uma action ao c
 
 
 ```javascript
-# js/controllers/ContactsController.js
+/* js/controllers/ContactsController.js */
 
 define('ContactsController', ['SFG', 'SFG.Controller'], function (SFG, Controller) {
     return SFG.extend(Controller, {
@@ -138,7 +138,7 @@ define('ContactsController', ['SFG', 'SFG.Controller'], function (SFG, Controlle
 ```
 
 ```html
-# layouts/contacts.html
+<!-- layouts/contacts.html -->
 
 <section class="action" data-action="main">
 	// ...
@@ -156,7 +156,7 @@ Uma Intent por ser criada de duas formas.
 
 A primeira é ser representada por um elemento na tela que possua a class `intent` e os atributos `data-intent`, `data-intent-data` e `data-intent-forResults`
 
-***data-intent***: Recebe o caminho do controller e action que será invocado. O caminho devera ser descrito seguindo o padrão `controller#action`. O nome do controller deve está todo em minúsculo e em casos de nome composto, separado por underline. Por exemplo: `contacts_manager#show`
+***data-intent***: Recebe o caminho do controller e action que será invocado. O caminho devera ser descrito seguindo o padrão `controller#action` ou apenas o nome do controller. O nome do controller deve está todo em minúsculo e em casos de nome composto, separado por underline. Por exemplo: `contacts_manager#show`
 
 ***data-intent-data*** *(opcional)*: Dados opcionais que poderão ser passados para a próxima tela.
 
@@ -169,6 +169,22 @@ A primeira é ser representada por um elemento na tela que possua a class `inten
     data-intent-data='{"name": "John Doe"}' 
     data-intent-forResults="true"
 >Show!</button>
+```
+
+A segunda maneira de criar Intents é criando novas instancias de Intent a partir do controller.
+
+```javascript
+[...]
+main: function (intent) {
+     var intent;
+     
+     intent = new Intent('contacts#show');
+     intent.data = {name: 'John Doe'};
+     intent.forResult = true;
+     
+     this.startIntent(intent);
+}
+[...]
 ```
 
 
