@@ -1,5 +1,5 @@
-define('MainController', 
-	['SFG', 'SFG.Controller', 'SFG.Intent', 'SFG.IntentManager'], 
+define('MainController',
+	['SFG', 'Controller', 'Intent', 'IntentManager'], 
 	function (SFG, Controller, Intent, IntentManager) {
 		return SFG.extend(Controller, {
 			transition: null,

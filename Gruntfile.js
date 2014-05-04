@@ -9,7 +9,7 @@ module.exports = function(grunt) {
 				expand: true,
 				flatten: true,
 				cwd: 'src/core/',
-				src: ['*.coffee'],
+				src: ['**.coffee'],
 				dest: 'src/core/',
 				ext: '.js'
 			},
@@ -82,11 +82,19 @@ module.exports = function(grunt) {
 
 		watch: {
 			coffee: {
-				files: ['src/app/**/*.coffee', 'src/core/*.coffee'],
-				tasks: ['coffee'],
+				files: 'src/app/**/*.coffee',
+				tasks: ['coffee:controllers', 'coffee:models'],
 				options: {
 			    	interrupt: true,
 			    }
+			},
+
+			core_coffee: {
+				files: 'src/core/*.coffee',
+				tasks: ['coffee:core', 'concat:core'],
+				options: {
+					interrupt: true,
+				}
 			},
 
 			views: {

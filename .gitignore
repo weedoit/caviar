@@ -8,3 +8,4 @@ pids
 .grunt
 build
 node_modules
+src/core/*.js
