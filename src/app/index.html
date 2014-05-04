@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>[so]fastGap</title>
+	<link rel="stylesheet" href="assets/css/sofastgap.css">
+	<link rel="stylesheet" href="assets/css/app.css">
+	<link rel="stylesheet" href="vendor/snapjs/snap.css">
+</head>
+<body>
+	<div class="snap-drawers">
+		<aside class="side-menu full-height snap-drawer snap-drawer-left">
+			<h2 class="inner-text-shadow">Menu</h2>
+			<ul>
+				<li>
+					<a href="#" class="intent" data-intent="main" data-intent-forResults="false">Main</a>
+				</li>
+				<li>
+					<a href="#" class="intent" data-intent="main#timeline" data-intent-forResults="false">Timeline</a>
+				</li>
+				<li>
+					<a href="#" class="intent" data-intent="contact" data-intent-forResults="false">Contact</a>
+				</li>
+			</ul>
+		</aside>
+		<aside class="side-menu full-height snap-drawer snap-drawer-right">
+			<h2>right</h2>
+		</aside>
+	</div>
+
+	<div id="stage" class="snap-content full-height">
+		<header>
+			<h3>[so]fastGap</h3>
+		</header>
+		<section id="content"></section>
+	</div>
+
+	<!-- LIBS -->
+	<script type="text/javascript" src="vendor/vue/dist/vue.min.js"></script>
+	<script type="text/javascript" src="vendor/fastclick/lib/fastclick.js"></script>
+	<script type="text/javascript" src="vendor/requirejs/require.js"></script>
+	<script type="text/javascript" src="vendor/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="vendor/snapjs/snap.min.js"></script>
+
+	<!-- CORE SCRIPTS -->
+	<script type="text/javascript" src="assets/js/sofastgap.js"></script>
+	<script type="text/javascript" src="assets/js/models.js"></script>
+	<script type="text/javascript" src="assets/js/controllers.js"></script>
+
+	<!-- APP BOOT -->
+	<script>
+		// Do the magical
+		require(['SFG.Bootstrap'], function (Bootstrap) {
+			Bootstrap.bootup();
+		});
+	</script>
+</body>
+</html>

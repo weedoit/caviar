@@ -6,5 +6,5 @@ pids
 *.pid
 *.seed
 .grunt
-build/Release
+build
 node_modules
