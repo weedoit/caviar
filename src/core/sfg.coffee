@@ -18,7 +18,7 @@ define 'SFG', () ->
 			set: (key, value) ->
 				globals[key] = value
 
-		contentBox: $('#content')
+		contentBox: $('.stage-container').eq 0
 
 		###*
 		 * Implements a extends utils

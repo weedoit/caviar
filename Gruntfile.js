@@ -35,15 +35,17 @@ module.exports = function(grunt) {
 
 		copy: {
 			assets: {
-				src: 'src/assets/**',
-				dest: 'build/assets/'
+				expand: true,
+				cwd: 'src/assets/',
+				src: '**',
+				dest: 'build/assets'
 			},
 
 			views: {
 				expand: true,
 				cwd: 'src/app/views/',
 				src: '**',
-				dest: 'build/views/'
+				dest: 'build/assets/layouts'
 			},
 
 			vendor: {
@@ -82,6 +84,11 @@ module.exports = function(grunt) {
 			}
 		},
 
+		clean: {
+			js: ['src/core/*.js'],
+			build: ['build/**']
+		},
+
 		watch: {
 			coffee: {
 				files: 'src/app/**/*.coffee',
@@ -93,7 +100,7 @@ module.exports = function(grunt) {
 
 			core_coffee: {
 				files: 'src/core/*.coffee',
-				tasks: ['coffee:core', 'concat:core'],
+				tasks: ['coffee:core', 'concat:core', 'clean'],
 				options: {
 					interrupt: true,
 				}
@@ -141,6 +148,6 @@ module.exports = function(grunt) {
 		}
 	});
 
-	grunt.registerTask('build', ['coffee', 'copy', 'concat']);
+	grunt.registerTask('build', ['clean:build', 'coffee', 'copy', 'concat', 'clean:js']);
 	grunt.registerTask('default', ['build', 'watch']);
 };

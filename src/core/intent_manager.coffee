@@ -9,7 +9,6 @@ define 'IntentManager', ['SFG', 'Intent', 'IntentHistory', 'ControllersInstanceM
 
 		bindIntentElements: () ->
 			$doc = $(document)
-			$window = $(window)
 
 			$doc.on 'click', '.intent', (e) ->
 				snapper = SFG.globals.get 'snapper'
@@ -33,29 +32,12 @@ define 'IntentManager', ['SFG', 'Intent', 'IntentHistory', 'ControllersInstanceM
 			IntentManager.setIntentResultHandler(intent)
 			prevIntent = IntentHistory.getPrev()
 
-			unless prevIntent == null
-				if prevIntent.controller == intent.controller
-					intent.controllerInstanceId = prevIntent.controllerInstanceId;
-					@invokeControllerAction(intent);
-					return;
-
 			CtrInstanceMgn.create intent.controller, (instanceId) ->
 				prevCtrInstance = if (prevIntent != null) then CtrInstanceMgn.get(prevIntent.controllerInstanceId) else null
 				intent.controllerInstanceId = instanceId
 				nextCtrInstance = CtrInstanceMgn.get(instanceId)
 
-				args =
-					prev:
-						intent: prevIntent
-						controllerInstance: prevCtrInstance
-					next:
-						intent: intent
-						controllerInstance: nextCtrInstance
-
-				nextCtrInstance[intent.action](intent)
-
-				UIManager.controllerTransition args, () ->
-					prevCtrInstance.unloadResources() if (!intent.forResult && prevIntent != null)
+				
 
 		back: () ->
 			prevIntent = IntentHistory.getPrev()

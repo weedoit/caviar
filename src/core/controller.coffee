@@ -20,6 +20,12 @@ define 'Controller', ['LayoutLoader', 'IntentManager', 'IntentHistory', 'ScopedE
         name: null
 
         ###*
+         * Vue.js instance object
+         * @type {String}
+         *###
+        vue: null
+
+        ###*
          * Zepto object from controller layout
          * @type {Object}
          *###
@@ -61,24 +67,7 @@ define 'Controller', ['LayoutLoader', 'IntentManager', 'IntentHistory', 'ScopedE
             @data[key] = value;
 
         ###*
-         * Load controller resources
-         * @param  {Function} callback
-         * @return {void}
-         *###
-        loadResources: (callback) ->
-            LayoutLoader.load(@name, callback)
-
-        ###*
-         * Destroy data and resources created by controller
-         * @return {void}
-         *###
-        unloadResources: () ->
-            unless @view == null
-                @view.remove();
-                @data = null;
-
-        ###*
-         * Method executed when a Intent sends result
+         * Method executed when an intent sends result
          * @param {Object} Sent data
          *###
         onResultHandler: (data) ->
@@ -91,26 +80,8 @@ define 'Controller', ['LayoutLoader', 'IntentManager', 'IntentHistory', 'ScopedE
             @onResultHandler = callback
 
         ###*
-         * Starts a intent
+         * Alias to starts an intent
          * @param {Intent}
          *###
         startIntent: (intent) ->
             IntentManager.start intent;
-
-        ###*
-         * @deprecated
-         *###
-        getViewByAction: (action) ->
-            @view.find ".action[data-action='#{action}']"
-
-        ###*
-         * @deprecated
-         *###
-        on: (event, element, callback) ->
-            currentIntent = IntentHistory.getCurrent()
-            @eventsScope.on(currentIntent.action, event, element, callback);
-
-        ###*
-         * @deprecated
-         *###
-        eventsScope: new ScopedEvents()

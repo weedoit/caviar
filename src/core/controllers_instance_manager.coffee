@@ -14,20 +14,44 @@ define 'ControllersInstanceManager', ['SFG', 'UIManager'], (SFG, UIManager) ->
             colletion[key] || null
 
         create: (controllerName, callback) ->
+            that = this;
             sequence = getSequence()
 
             require [controllerName], (ControllerClass) ->
                 instance = new ControllerClass()
                 instance.name = controllerName;
 
-                instance.loadResources (layoutData) ->
-                    view = UIManager.createViewElement(sequence, layoutData)
-                    UIManager.initializeLayout(view);
+                that.loadResources (layoutData) ->
+                    viewElement = UIManager.createViewElement(sequence, layoutData)
+    
+                    instance.vue = new Vue {
+                        el: viewElement
+                        methods: instance
+                        data: instance.data
+                    }
 
-                    instance.view = view
                     instance.initialize()
+
                     colletion[sequence] = instance
                     callback sequence
+
+        ###*
+         * Load controller resources
+         * @param {Function} callback
+         * @return {void}
+         *###
+        loadResources: (callback) ->
+            LayoutLoader.load(@name, callback)
+
+        ###*
+         * Destroy data and resources created by controller
+         * @return {void}
+         *###
+        unloadResources: () ->
+            #unless @view == null
+             #   @view.remove();
+              #  @data = null;
+
 
         restore: (controllerInstance, callback) ->
             sequence = getSequence()
@@ -41,5 +65,4 @@ define 'ControllersInstanceManager', ['SFG', 'UIManager'], (SFG, UIManager) ->
         destroy: (key) ->
             controllerInstance = this.get(key);
             controllerInstance.destroy()
-            colletion[key].unloadResources()
             delete colletion[key]
