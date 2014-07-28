@@ -1,18 +1,11 @@
 ###*
  * Controller superclass.
  * This class will be used like a basic implementation that all controllers must to be
- * @module SFG.Controller
+ * @module Caviar.Controller
  * @author Bruno Ziiê <http://github.com/brunoziie/>
  *###
-define 'Controller', ['LayoutLoader', 'IntentManager', 'IntentHistory', 'ScopedEvents'], (LayoutLoader, IntentManager, IntentHistory, ScopedEvents) ->
-
+define 'Controller', ['IntentManager'], (IntentManager) ->
     Controller =
-        ###*
-         * Transition effect used by controller
-         * @type {String}
-         *###
-        transition: null
-
         ###*
          * Controller name
          * @type {String}
@@ -26,16 +19,16 @@ define 'Controller', ['LayoutLoader', 'IntentManager', 'IntentHistory', 'ScopedE
         vue: null
 
         ###*
-         * Zepto object from controller layout
-         * @type {Object}
-         *###
-        view: null
-
-        ###*
          * Store data used by controller
          * @type {Object}
          *###
         data: {}
+
+        ###*
+         * Methods that Vue.js will use in view
+         * @type {Object}
+         *###
+        publicMethods: {}
 
         ###*
          * Init controller's settings

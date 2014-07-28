@@ -1,4 +1,4 @@
-define 'Bootstrap', ['SFG', 'IntentManager', 'Intent'], (SFG, IntentManager, Intent) ->
+define 'Bootstrap', ['Caviar', 'IntentManager', 'Intent'], (Caviar, IntentManager, Intent) ->
     Bootstrap =
         ###
         Bootup application
@@ -6,7 +6,7 @@ define 'Bootstrap', ['SFG', 'IntentManager', 'Intent'], (SFG, IntentManager, Int
         bootup: () ->
             this.initializeMenus();
             IntentManager.bindIntentElements();
-            IntentManager.start(new Intent('main#main'));
+            IntentManager.start(new Intent('main'));
 
         ###
         Setup sidebar menus
@@ -28,4 +28,4 @@ define 'Bootstrap', ['SFG', 'IntentManager', 'Intent'], (SFG, IntentManager, Int
                 touchToDrag: true,
                 slideIntent: 40,
                 minDragDistance: 5
-            SFG.globals.set 'snapper', new Snap(options)
+            Caviar.globals.set 'snapper', new Snap(options)

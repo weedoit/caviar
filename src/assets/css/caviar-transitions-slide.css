@@ -1,9 +1,9 @@
-.transition-in.slide .ui-controler-instance.next {
+.caviar-transition-in.slide .caviar-ui-controler-instance.caviar-next {
     animation: slide-in 300ms ease 450ms both;
     -webkit-animation: slide-in 300ms ease 450ms both;
 }
 
-.transition-out.slide .ui-controler-instance.active {
+.caviar-transition-out.slide .caviar-ui-controler-instance.caviar-active {
     animation: slide-out 300ms ease 0ms both;
     -webkit-animation: slide-out 300ms ease 0ms both;
 }

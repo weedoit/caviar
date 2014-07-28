@@ -1,4 +1,4 @@
-define 'ControllersInstanceManager', ['SFG', 'UIManager'], (SFG, UIManager) ->
+define 'ControllersInstanceManager', ['Caviar', 'UIManager', 'LayoutLoader'], (Caviar, UIManager, LayoutLoader) ->
     seq = 0
     colletion = {}
 
@@ -13,35 +13,37 @@ define 'ControllersInstanceManager', ['SFG', 'UIManager'], (SFG, UIManager) ->
         get: (key) ->
             colletion[key] || null
 
-        create: (controllerName, callback) ->
+        create: (intent, callback) ->
             that = this;
             sequence = getSequence()
+            controller = intent.controller
 
-            require [controllerName], (ControllerClass) ->
+            require [controller], (ControllerClass) ->
                 instance = new ControllerClass()
-                instance.name = controllerName;
+                instance.name = controller;
 
-                that.loadResources (layoutData) ->
+                that.loadResources(instance, (layoutData) ->
                     viewElement = UIManager.createViewElement(sequence, layoutData)
     
                     instance.vue = new Vue {
-                        el: viewElement
-                        methods: instance
+                        el: "##{viewElement}"
+                        methods: instance.publicMethods
                         data: instance.data
                     }
 
-                    instance.initialize()
-
+                    instance.initialize(intent)
                     colletion[sequence] = instance
                     callback sequence
+                )
 
         ###*
          * Load controller resources
+         * @param {Object} Controller instance
          * @param {Function} callback
          * @return {void}
          *###
-        loadResources: (callback) ->
-            LayoutLoader.load(@name, callback)
+        loadResources: (instance, callback) ->
+            LayoutLoader.load(instance.name, callback)
 
         ###*
          * Destroy data and resources created by controller

@@ -7,7 +7,7 @@ define 'Intent', () ->
         constructor: (element) ->
             unless typeof element == 'undefined'
                 if typeof element == 'string'
-                    @parseControllerAndActionsName(element)
+                    @parseControllerName(element)
                 else if typeof element == 'object'
                     @parseIntentElement(element)
                     @caller = element;
@@ -23,12 +23,6 @@ define 'Intent', () ->
          * @type {string}
          *###
         controllerInstanceId: null
-
-        ###*
-         * When not null will calls a action from current instance controller
-         * @type {string}
-         *###
-        action: 'main'
 
         ###*
          * Optional data to controller
@@ -66,18 +60,15 @@ define 'Intent', () ->
 
             @data = intentData
             @forResult = intentForResult
-            @parseControllerAndActionsName($element.data('intent'))
+            @parseControllerName($element.data('intent-path'))
             return
 
         ###*
          * Parse controller name
          *###
-        parseControllerAndActionsName: (intentPath) ->
-            splits = intentPath.split('#')
-
-            @controller = splits[0].replace(/^([a-z])|_([a-z])/g, ($1) ->
+        parseControllerName: (intentPath) ->
+            @controller = intentPath.replace(/^([a-z])|_([a-z])/g, ($1) ->
                 $1.toUpperCase()
             ).replace(/(\s|_)/, '') + 'Controller'
 
-            @action = splits[1] || 'main'
             return

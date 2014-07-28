@@ -47,7 +47,7 @@ Actions são métodos do controller que são responsáveis por implementar toda 
 Toda action quando é executada recebe como parâmentro a *[Intent](#intents)* que a invocou.
  
 #### Criando controllers
-Para criar um controller, você deve criar um novo arquivo no diretório destinados a controllers e criar um modulo e implementa-lo herdando do modulo `SFG.Controller`. Além disso todos os controllers devem ser nomeados usando [CamelCase](http://pt.wikipedia.org/wiki/CamelCase) e sucedidos pelo sufixo `Controller`. Este mesmo nome deve ser usado no arquivo.
+Para criar um controller, você deve criar um novo arquivo no diretório destinados a controllers e criar um modulo e implementa-lo herdando do modulo `Caviar.Controller`. Além disso todos os controllers devem ser nomeados usando [CamelCase](http://pt.wikipedia.org/wiki/CamelCase) e sucedidos pelo sufixo `Controller`. Este mesmo nome deve ser usado no arquivo.
 
 **Ex:** Se meu controller chama-se `Contacts` então será nomeado como `ContactsController`.
 
@@ -58,8 +58,8 @@ A estrutura básica do meu controller ficaria da seguinte forma:
 ```javascript
 /* js/controllers/ContactsController.js */
 
-define('ContactsController', ['SFG', 'SFG.Controller'], function (SFG, Controller) {
-    return SFG.extend(Controller, {
+define('ContactsController', ['Caviar', 'Caviar.Controller'], function (Caviar, Controller) {
+    return Caviar.extend(Controller, {
         main: function (intent) {
             //...
         }
@@ -72,7 +72,7 @@ define('ContactsController', ['SFG', 'SFG.Controller'], function (SFG, Controlle
 Por padrão sempre que um controller é invocado por uma *[Intent](#intents)* sem ser definida uma action em especifica, a action `main` será chamada. Isso pode ser útil em controllers que não possuirão mais de uma tela. Você pode criar apenas a action `main` e quando estiver criando uma *[Intent](#intents)* não precisará especificar qual action será chamada.
 
 
-Existem alguns métodos e atributos padrões implementados no modulo `SFG.Controller` que são importantes que sejam conhecidos.
+Existem alguns métodos e atributos padrões implementados no modulo `Caviar.Controller` que são importantes que sejam conhecidos.
 
 
 #### Atributos do controller
@@ -125,8 +125,8 @@ Seguindo o exemplo do controller de contatos, adicionaremos mais uma action ao c
 ```javascript
 /* js/controllers/ContactsController.js */
 
-define('ContactsController', ['SFG', 'SFG.Controller'], function (SFG, Controller) {
-    return SFG.extend(Controller, {
+define('ContactsController', ['Caviar', 'Caviar.Controller'], function (Caviar, Controller) {
+    return Caviar.extend(Controller, {
         main: function (intent) {
             //...
         },

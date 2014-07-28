@@ -1,6 +1,6 @@
-define 'IntentManager', ['SFG', 'Intent', 'IntentHistory', 'ControllersInstanceManager', 'UIManager'], (SFG, Intent, IntentHistory, ControllersInstanceManager, UIManager) ->
+define 'IntentManager', ['Caviar', 'Intent', 'IntentHistory', 'ControllersInstanceManager', 'UIManager'], (Caviar, Intent, IntentHistory, ControllersInstanceManager, UIManager) ->
 	INDEX = 0
-	CtrInstanceMgn = ControllersInstanceManager
+	CtrInstanceMgn = ControllersInstanceManager	
 
 	IntentManager =
 
@@ -11,8 +11,8 @@ define 'IntentManager', ['SFG', 'Intent', 'IntentHistory', 'ControllersInstanceM
 			$doc = $(document)
 
 			$doc.on 'click', '.intent', (e) ->
-				snapper = SFG.globals.get 'snapper'
-				snapper.close() unless snapper == null
+				#snapper = Caviar.globals.get 'snapper'
+				#snapper.close() unless snapper == null
 
 				IntentManager.start(new Intent(@))
 				window.location.hash = IntentManager.getIndex()
@@ -32,10 +32,13 @@ define 'IntentManager', ['SFG', 'Intent', 'IntentHistory', 'ControllersInstanceM
 			IntentManager.setIntentResultHandler(intent)
 			prevIntent = IntentHistory.getPrev()
 
-			CtrInstanceMgn.create intent.controller, (instanceId) ->
-				prevCtrInstance = if (prevIntent != null) then CtrInstanceMgn.get(prevIntent.controllerInstanceId) else null
-				intent.controllerInstanceId = instanceId
-				nextCtrInstance = CtrInstanceMgn.get(instanceId)
+			CtrInstanceMgn.create intent, (instanceId) ->
+				if IntentHistory.hasPrev()
+					UIManager.transitionIn () ->
+						console.log(1)
+				else
+					UIManager.transitionNone () ->
+						console.log(2)
 
 				
 

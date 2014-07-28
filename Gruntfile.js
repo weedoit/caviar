@@ -63,15 +63,15 @@ module.exports = function(grunt) {
 
 		concat: {
 			css: {
-				dest: 'build/assets/css/sofastgap.css',
-				src: ['src/assets/css/sofastgap*.css']
+				dest: 'build/assets/css/caviar.css',
+				src: ['src/assets/css/caviar*.css']
 			},
 			css_app: {
 				dest: 'build/assets/css/app.css',
 				src: ['src/assets/css/app*.css']
 			},
 			core: {
-				dest: 'build/assets/js/sofastgap.js',
+				dest: 'build/assets/js/caviar.js',
 				src: ['src/core/*.js']
 			},
 			controllers: {
@@ -100,7 +100,7 @@ module.exports = function(grunt) {
 
 			core_coffee: {
 				files: 'src/core/*.coffee',
-				tasks: ['coffee:core', 'concat:core', 'clean'],
+				tasks: ['coffee:core', 'concat:core', 'clean:js'],
 				options: {
 					interrupt: true,
 				}

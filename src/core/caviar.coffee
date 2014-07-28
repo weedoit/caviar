@@ -1,7 +1,7 @@
-define 'SFG', () ->
+define 'Caviar', () ->
 	globals = {}
 
-	SFG =
+	Caviar =
 		globals:
 			###*
 			 * Get a variable of application global scope
@@ -18,7 +18,7 @@ define 'SFG', () ->
 			set: (key, value) ->
 				globals[key] = value
 
-		contentBox: $('.stage-container').eq 0
+		contentBox: $('.caviar-stage-container').eq 0
 
 		###*
 		 * Implements a extends utils
@@ -26,16 +26,19 @@ define 'SFG', () ->
 		 * @param {Mixed} def Object or function with override implementation
 		 * @return {Function}
 		 *###
-		extend: (superclass, def) ->
-			hasProp = {}.hasOwnProperty
-			parent = () ->
-			child = if typeof def == 'function' then new def() else def
+		extend: (parent, child) ->
+			_hasProp = {}.hasOwnProperty
+			_p = if typeof parent == 'function' then new parent() else parent
+			_c = if typeof child == 'function' then new child() else child
+
 			extended = () ->
+			ctor = () ->
 
-			parent.prototype = if typeof superclass == 'function' then new superclass() else superclass;
-			extended.prototype = new parent();
+			ctor.prototype = _p			
 
-			for key in child
-				extended.prototype[key] = child[key] if hasProp.call(child, key)
+			for key of _c
+				if _hasProp.call(_c, key)
+					ctor.prototype[key] = _c[key]
 
-			extended;
+			extended.prototype = new ctor()
+			return extended

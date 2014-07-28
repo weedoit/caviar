@@ -51,3 +51,10 @@ define 'IntentHistory', ['Intent'], (Intent) ->
          *###
         clear: () ->
             colletion = []
+
+        ###*
+         * Clear intents history
+         * @return {Array}
+         *###
+        hasPrev: () ->
+            colletion.length > 1
