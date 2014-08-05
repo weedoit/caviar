@@ -59,18 +59,9 @@ define 'Controller', ['IntentManager'], (IntentManager) ->
         set: (key, value) ->
             @data[key] = value;
 
-        ###*
-         * Method executed when an intent sends result
-         * @param {Object} Sent data
-         *###
-        onResultHandler: (data) ->
+        onResume: () ->
 
-        ###*
-         * Defines onResultHandler callback
-         * @param {Function}
-         *###
-        waitForResult: (callback) ->
-            @onResultHandler = callback
+        onResult: () ->
 
         ###*
          * Alias to starts an intent

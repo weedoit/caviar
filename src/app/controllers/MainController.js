@@ -1,18 +1,19 @@
-define('MainController', ['Caviar', 'Controller'], function (Caviar, Controller) {
+define('MainController', ['Caviar', 'Controller', 'Intent', 'IntentManager'], function (Caviar, Controller, Intent, IntentManager) {
 	return Caviar.extend(Controller, {
-		transition: 'djsajdijsaidjiaosjdioasji',
 
 		initialize: function () {
-			this.data.title = 'Main screen';
+			this.set('title', '');
+			this.set('description', '');
 		}, 
 
 		
 		publicMethods: {
 			foo: function (e) {
+				var i;
 
-				e.$data.title = 'ContactController.js';
-
-
+				i = new Intent('contact');
+				i.data = e.$data;
+				IntentManager.start(i);
 			}
 		}
 	});

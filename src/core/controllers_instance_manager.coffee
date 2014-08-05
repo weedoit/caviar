@@ -32,6 +32,8 @@ define 'ControllersInstanceManager', ['Caviar', 'UIManager', 'LayoutLoader'], (C
                     }
 
                     instance.initialize(intent)
+
+                    intent.controllerInstanceId = sequence
                     colletion[sequence] = instance
                     callback sequence
                 )

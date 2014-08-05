@@ -1,4 +1,4 @@
-define 'Intent', () ->
+define 'Intent', ['ControllersInstanceManager'], (ControllersInstanceManager) ->
     class Intent
         ###*
          * Constructor
@@ -37,19 +37,6 @@ define 'Intent', () ->
         forResult: false
 
         ###*
-         * Result callback
-         * @param {Object} data Data that will be sent to the origin intent
-         *###
-        resultHandler: (data) ->
-
-        ###*
-         * Send data result to origin intent
-         * @type {Boolean}
-         *###
-        result: (data) ->
-            @resultHandler(@, data)
-
-        ###*
          * Mount a intent from a element
          * @param  {Object} element DOM Element that calls a intent
          *###
@@ -72,3 +59,6 @@ define 'Intent', () ->
             ).replace(/(\s|_)/, '') + 'Controller'
 
             return
+
+        getControllerInstance: () ->
+            ControllersInstanceManager.get @controllerInstanceId

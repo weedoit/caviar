@@ -1,6 +1,12 @@
 /**
 * MAIN CONTENT TRANSITIONS
 */
+.caviar-transition-in .caviar-ui-controler-instance,
+.caviar-transition-out .caviar-ui-controler-instance {
+	-webkit-transform: translateZ(0);
+	transform: translateZ(0);
+}
+
 .caviar-transition-in .caviar-ui-controler-instance.caviar-active {
     animation: focus-out 450ms ease 0ms both;
     -webkit-animation: focus-out 450ms ease 0ms both;

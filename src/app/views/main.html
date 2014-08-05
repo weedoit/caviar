@@ -1,15 +1,19 @@
-<h2>{{title}}</h2>
 
-<div class="has-text">
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium hic dolores, temporibus error quod molestiae illo deserunt. Ea maiores animi ad voluptas natus blanditiis facilis cumque sapiente id, illum. Commodi.
-</div>
+<input 
+	type="text" 	
+	style="width: 96%; margin: 0 2%; font-size:18px; display:block; height: 10%;" 
+	v-model="title" 
+/>
 
-
+<textarea 
+	style="width: 96%; margin: 0 2%; font-size:18px; display:block; height: 50%;"
+	v-model="description"
+>
+</textarea>
 
 <button class="intent" data-intent-path='contact'>
     Contato
 </button>
 
-<button v-on="click: foo(this)">
-    Vue
-</button>
+
+<!-- <button v-on="click: foo(this)">Enviar</button> -->

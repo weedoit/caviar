@@ -10,114 +10,59 @@ define 'IntentManager', ['Caviar', 'Intent', 'IntentHistory', 'ControllersInstan
 		bindIntentElements: () ->
 			$doc = $(document)
 
-			$doc.on 'click', '.intent', (e) ->
-				#snapper = Caviar.globals.get 'snapper'
-				#snapper.close() unless snapper == null
+			# Windows phone fallback
+			window.intentBack = (evt) ->
+				try
+					before = parseInt(evt.oldURL.split('#')[1] || 0, 10)
+					after = parseInt(evt.newURL.split('#')[1] || 0, 10)
 
+					return IntentManager.back() if before > after
+				catch ex
+					console.log ex
+
+			window.addEventListener 'hashchange', window.intentBack, false
+
+			$doc.on 'tap', '.caviar-back', (e) ->
+				window.history.back(); 
+				e.preventDefault()
+
+			$doc.on 'tap', '.intent', (e) ->
 				IntentManager.start(new Intent(@))
 				window.location.hash = IntentManager.getIndex()
 				e.preventDefault()
 
-			window.addEventListener 'hashchange', (evt) ->
-				try
-					before = evt.oldURL.split('#')[1] || 0
-					after = evt.newURL.split('#')[1] || 0
-					return IntentManager.back() if (parseInt(before, 10) > parseInt(after, 10))
-				catch ex
-			, false
-
 
 		start: (intent) ->
+			isMainController = intent.controller == 'main'
+			
 			IntentHistory.add(intent)
-			IntentManager.setIntentResultHandler(intent)
-			prevIntent = IntentHistory.getPrev()
-
+			
 			CtrInstanceMgn.create intent, (instanceId) ->
 				if IntentHistory.hasPrev()
 					UIManager.transitionIn () ->
-						console.log(1)
+						#if isMainController 
+						
 				else
 					UIManager.transitionNone () ->
-						console.log(2)
 
-				
 
 		back: () ->
-			prevIntent = IntentHistory.getPrev()
-			currentIntent = IntentHistory.getCurrent()
-			currentCtrInstance = CtrInstanceMgn.get currentIntent.controllerInstanceId
-			keepResources = false
+			if IntentHistory.hasPrev()
+				prev = IntentHistory.getPrev()
 
-			return if prevIntent == null
+				controllerInstance = prev.getControllerInstance()
+				controllerInstance.onResume()
 
-			if prevIntent.controller == currentIntent.controller
-				keepResources = true
+				UIManager.transitionOut () ->
+					console.log 'transitionOut'
+					IntentHistory.removeLast()
+					UIManager.destroyDeadViews()
 
-				UIManager.actionTransition currentCtrInstance, prevIntent.action, () ->
-					IntentManager.destroy currentIntent, keepResources
-			else
-				prevCtrInstance = CtrInstanceMgn.get prevIntent.controllerInstanceId
-				args =
-					prev:
-						intent: currentIntent
-						controllerInstance: currentCtrInstance
-					next:
-						intent: prevIntent
-						controllerInstance: prevCtrInstance
-
-
-				if (!prevIntent.forResult)
-					CtrInstanceMgn.restor prevCtrInstance, () ->
-						UIManager.controllerTransition args, () ->
-							IntentManager.destroy currentIntent, keepResources
-
-				else
-					UIManager.controllerTransition args, () ->
-						IntentManager.destroy currentIntent, keepResources
-
-			return true;
-
-		resume: (intent, data) ->
-			prevIntent = IntentHistory.getPrev()
-			currentIntent = intent
-			currentCtrInstance = CtrInstanceMgn.get currentIntent.controllerInstanceId
-			prevCtrInstance = CtrInstanceMgn.get prevIntent.controllerInstanceId
-			keepResources = false
-
-			args =
-				prev:
-					intent: currentIntent
-					controllerInstance: currentCtrInstance
-				next:
-					intent: prevIntent
-					controllerInstance: prevCtrInstance
-
-
-			prevCtrInstance.onResultHandler data;
-
-			if prevIntent.controller == currentIntent.controller
-				UIManager.actionTransition currentCtrInstance, prevIntent.action, () ->
-					keepResources = true
-					IntentManager.destroy currentIntent, keepResources
-			else
-				UIManager.controllerTransition args, () ->
-					IntentManager.destroy currentIntent, keepResources
-
-		destroy: (intent, keepResources) ->
-			keepResources_ = keepResources || false
-			controllerInstance = CtrInstanceMgn.get intent.controllerInstanceId
-
-			controllerInstance.unloadResources() if keepResources_ == false
-			controllerInstance.eventsScope.clearEvents intent.action
-			IntentHistory.remove intent
 
 		invokeControllerAction: (intent) ->
 			controllerInstance = CtrInstanceMgn.get intent.controllerInstanceId
 			controllerInstance[intent.action](intent)
 			UIManager.actionTransition controllerInstance, intent.action
-
-		setIntentResultHandler: (intent) ->
-			intent.resultHandler = @onResultHandler
 
 		onResultHandler: (intent, data) ->
 			IntentManager.resume intent, data

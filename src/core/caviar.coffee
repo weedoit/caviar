@@ -28,8 +28,8 @@ define 'Caviar', () ->
 		 *###
 		extend: (parent, child) ->
 			_hasProp = {}.hasOwnProperty
-			_p = if typeof parent == 'function' then new parent() else parent
-			_c = if typeof child == 'function' then new child() else child
+			_p = if @isFunction(parent) then new parent() else parent
+			_c = if @isFunction(child) then new child() else child
 
 			extended = () ->
 			ctor = () ->
@@ -42,3 +42,6 @@ define 'Caviar', () ->
 
 			extended.prototype = new ctor()
 			return extended
+
+		isFunction: (arg) ->
+			typeof arg == 'function'
