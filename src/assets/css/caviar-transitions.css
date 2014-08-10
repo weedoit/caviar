@@ -8,13 +8,13 @@
 }
 
 .caviar-transition-in .caviar-ui-controler-instance.caviar-active {
-    animation: focus-out 450ms ease 0ms both;
-    -webkit-animation: focus-out 450ms ease 0ms both;
+    animation: focus-out 250ms ease 0ms both;
+    -webkit-animation: focus-out 250ms ease 0ms both;
 }
 
 .caviar-transition-out .caviar-ui-controler-instance.caviar-prev {
-    animation: focus-in 450ms ease 300ms both;
-    -webkit-animation: focus-in 450ms ease 300ms both;
+    animation: focus-in 250ms ease 300ms both;
+    -webkit-animation: focus-in 250ms ease 300ms both;
 }
 
 @keyframes focus-in {
@@ -29,10 +29,10 @@
 
 @keyframes focus-out {
 	0% {transform:scale(1); opacity: 1;} 
-	100% {transform:scale(0.9); opacity: 0.9;}
+	100% {transform:scale(0.9); opacity: 0.5;}
 }
 
 @-webkit-keyframes focus-out {
 	0% {-webkit-transform:scale(1); opacity: 1;}
-	100% {-webkit-transform:scale(0.9);opacity: 0.9;}
+	100% {-webkit-transform:scale(0.9);opacity: 0.5;}
 }

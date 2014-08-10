@@ -46,6 +46,13 @@ define 'IntentHistory', ['Intent'], (Intent) ->
             return colletion
 
         ###*
+         * Returns history size
+         * @return {Number}
+         *###
+        count: () ->
+            return colletion.length
+
+        ###*
          * Clear intents history
          * @return {Array}
          *###

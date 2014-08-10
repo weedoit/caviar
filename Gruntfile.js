@@ -132,7 +132,7 @@ module.exports = function(grunt) {
 
 			assets: {
 				files: 'src/assets/**',
-				tasks: ['copy:assets'],
+				tasks: ['copy:assets', 'concat:css', 'concat:css_app'],
 				options: {
 					interrupt: true,
 				}
@@ -145,6 +145,7 @@ module.exports = function(grunt) {
 					interrupt: true,
 				}
 			}
+			
 		}
 	});
 

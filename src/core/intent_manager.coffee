@@ -1,6 +1,10 @@
 define 'IntentManager', ['Caviar', 'Intent', 'IntentHistory', 'ControllersInstanceManager', 'UIManager'], (Caviar, Intent, IntentHistory, ControllersInstanceManager, UIManager) ->
 	INDEX = 0
+	CURRENT_INDEX = 0
+
 	CtrInstanceMgn = ControllersInstanceManager	
+	StateHistory = History
+
 
 	IntentManager =
 
@@ -10,41 +14,40 @@ define 'IntentManager', ['Caviar', 'Intent', 'IntentHistory', 'ControllersInstan
 		bindIntentElements: () ->
 			$doc = $(document)
 
-			# Windows phone fallback
-			window.intentBack = (evt) ->
-				try
-					before = parseInt(evt.oldURL.split('#')[1] || 0, 10)
-					after = parseInt(evt.newURL.split('#')[1] || 0, 10)
+			StateHistory.Adapter.bind(window, 'statechange', () ->
+				state = StateHistory.getState();
+				prevIndex = CURRENT_INDEX
+				currentIndex = state.data.index || 0
 
-					return IntentManager.back() if before > after
-				catch ex
-					console.log ex
+				if prevIndex > currentIndex 
+					# Backing controller
+					IntentManager.back()
+				else 
+					# Starting a new controller
 
-			window.addEventListener 'hashchange', window.intentBack, false
+				CURRENT_INDEX = currentIndex
+				return
+			)
 
 			$doc.on 'tap', '.caviar-back', (e) ->
-				window.history.back(); 
+				window.history.back() 
 				e.preventDefault()
 
 			$doc.on 'tap', '.intent', (e) ->
 				IntentManager.start(new Intent(@))
-				window.location.hash = IntentManager.getIndex()
 				e.preventDefault()
 
-
 		start: (intent) ->
-			isMainController = intent.controller == 'main'
-			
 			IntentHistory.add(intent)
-			
+			index = IntentManager.getIndex()
+			StateHistory.pushState {index: index}, null, "?state=#{index}"
+
 			CtrInstanceMgn.create intent, (instanceId) ->
 				if IntentHistory.hasPrev()
 					UIManager.transitionIn () ->
-						#if isMainController 
-						
+						IntentManager.clearStack(intent)		
 				else
-					UIManager.transitionNone () ->
-
+					UIManager.transitionNone()
 
 		back: () ->
 			if IntentHistory.hasPrev()
@@ -54,15 +57,27 @@ define 'IntentManager', ['Caviar', 'Intent', 'IntentHistory', 'ControllersInstan
 				controllerInstance.onResume()
 
 				UIManager.transitionOut () ->
-					console.log 'transitionOut'
 					IntentHistory.removeLast()
 					UIManager.destroyDeadViews()
+			else
+				Caviar.exit()
+
+		clearStack: (intent) ->
+			if intent.controller == 'MainController'
+				console.log 'oi'
+				current = IntentHistory.getCurrent()
+				count = IntentHistory.count()
+
+				IntentHistory.clear()
+				IntentHistory.add(current)
+				window.history.go((count + 1) * -1)
+				UIManager.destroyBackgroundedViews(intent)
 
 
-		invokeControllerAction: (intent) ->
-			controllerInstance = CtrInstanceMgn.get intent.controllerInstanceId
-			controllerInstance[intent.action](intent)
-			UIManager.actionTransition controllerInstance, intent.action
 
-		onResultHandler: (intent, data) ->
-			IntentManager.resume intent, data
+
+
+
+
+
+

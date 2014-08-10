@@ -45,3 +45,15 @@ define 'Caviar', () ->
 
 		isFunction: (arg) ->
 			typeof arg == 'function'
+
+		###*
+		 * Exit from app
+		 *###
+		exit: () ->
+			if (navigator.app) 
+				navigator.app.exitApp()
+			else if (navigator.device) 
+				navigator.device.exitApp()
+			else
+				console.log('[Caviar] Application supposed to be ended')
+			

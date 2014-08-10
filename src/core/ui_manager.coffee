@@ -15,9 +15,13 @@ define 'UIManager', ['Caviar'], (Caviar) ->
 		destroyDeadViews: () ->
 			$('.caviar-dead').remove()
 
+		destroyBackgroundedViews: () ->
+			$('.caviar-backgrounded.caviar-standby').remove()
+
 		transitionIn: (callback) -> 
 			cb = callback || () ->
 
+			$('.caviar-backgrounded').addClass('caviar-standby');
 			$('.caviar-stage').toggleClass('caviar-transition-in');
 			$('.caviar-ui-controler-instance.caviar-next').one ANIMATIONS_EVENTS, (e) -> 
 				$this = $(this)
@@ -25,17 +29,16 @@ define 'UIManager', ['Caviar'], (Caviar) ->
 				$currentActive.removeClass('caviar-active').addClass('caviar-backgrounded')
 				$this.addClass('caviar-keep').removeClass('caviar-next').addClass('caviar-active').removeClass('caviar-keep')
 				$stage.removeClass('caviar-transition-in')
-
 				cb()
 
 			return
 
 		transitionOut: (callback) -> 
-			console.log('bootstrap.coffee')
 			cb = callback || () -> 
 
+			$('.caviar-backgrounded').last().toggleClass('caviar-backgrounded caviar-prev');
+			$('.caviar-standby').last().removeClass('caviar-standby');
 
-			$('.caviar-backgrounded').toggleClass('caviar-backgrounded caviar-prev');
 			$('.caviar-stage').addClass('caviar-transition-out');
 			$('.caviar-ui-controler-instance.caviar-prev').one ANIMATIONS_EVENTS,  (e) ->
 				$this = $(this)
@@ -44,6 +47,8 @@ define 'UIManager', ['Caviar'], (Caviar) ->
 				$this.addClass('caviar-keep').removeClass('caviar-prev').addClass('caviar-active').removeClass('caviar-keep')
 				$stage.removeClass('caviar-transition-out')
 				cb()
+
+			return
 
 		transitionNone: (callback) ->
 			cb = callback || () -> 
