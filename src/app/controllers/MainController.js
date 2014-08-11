@@ -1,4 +1,4 @@
-define('MainController', ['Caviar', 'Controller', 'Intent', 'IntentManager'], function (Caviar, Controller, Intent, IntentManager) {
+define('MainController', ['Caviar', 'Controller'], function (Caviar, Controller) {
 	return Caviar.extend(Controller, {
 
 		initialize: function () {
