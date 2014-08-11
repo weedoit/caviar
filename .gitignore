@@ -1,4 +1,6 @@
-src/vendor
+!src/vendor
+src/vendor/**
+!src/vendor/jquery.tap
 logs
 *.log
 *.DS_Store
