@@ -1,6 +1,6 @@
 .caviar-transition-in.slide .caviar-ui-controler-instance.caviar-next {
-    animation: slide-in 300ms ease 150ms both;
-    -webkit-animation: slide-in 300ms ease 150ms both;
+    animation: slide-in 300ms ease 250ms both;
+    -webkit-animation: slide-in 300ms ease 250ms both;
 }
 
 .caviar-transition-out.slide .caviar-ui-controler-instance.caviar-active {
@@ -9,21 +9,19 @@
 }
 
 @keyframes slide-in {
-	0% {left: 100%; opacity: 0.4;}
-	100% {left: 0; opacity: 1;}
+	0% {transform: translateX(100%); opacity: 0.4;}
+	100% {transform: translateX(0); opacity: 1;}
 }
 
 @-webkit-keyframes slide-in {
-	0% {left: 100%; opacity: 0.4;}
-	100% {left: 0; opacity: 1;}
+	0% {-webkit-transform: translateX(100%); opacity: 0.4;}
+	100% {-webkit-transform: translateX(0); opacity: 1;}
 }
 
 @keyframes slide-out {
-	0% {left: 0; opacity: 1;}
-	100% {left: 100%; opacity: 0.4;}
+	100% {transform: translateX(100%); opacity: 0.4;}
 }
 
 @-webkit-keyframes slide-out {
-	0% {left: 0; opacity: 1;}
-	100% {left: 100%; opacity: 0.4;}
+	100% {-webkit-transform: translateX(100%);  opacity: 0.4;}
 }

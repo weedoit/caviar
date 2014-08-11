@@ -6,16 +6,27 @@
 	<title>Caviar</title>
 	<link rel="stylesheet" href="assets/css/caviar.css">
 	<link rel="stylesheet" href="assets/css/app-main.css">
-	<link rel="stylesheet" href="vendor/snapjs/snap.css">
+	<link rel="stylesheet" href="vendor/bower/snapjs/snap.css">
 </head>
 <body>
-	<div id="page">
-		<div class="snap-drawers">
+	<div>
+		<div class="side-menu snap-drawers">
 			<!-- MENU -->
 			<menu id="menu">
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-				Fugiat laudantium natus accusantium praesentium iusto perspiciatis aspernatur soluta, 
-				possimus, eaque nobis tempora quia inventore reiciendis velit, tenetur odio quo libero quae!
+				<ul>
+					<li> 
+						<a href="#" class="intent" data-intent-path="help">Help</a>
+					</li>
+					<li>
+						<a href="#" class="intent" data-intent-path="help">Help</a>
+					</li>
+					<li>
+						<a href="#" class="intent" data-intent-path="help">Help</a>
+					</li>
+				</ul>
+				<div class="sign">
+					<img src="assets/images/made_by.png">
+				</div>
 			</menu>
 		</div>
 
@@ -26,15 +37,13 @@
 
 
 	<!-- LIBS -->
-	<!-- <script type="text/javascript" src="vendor/cordova/cordova-ios.js"></script> -->
-	<!-- <script type="text/javascript" src="vendor/cordova/cordova-android.js"></script> -->
-
-	<script type="text/javascript" src="vendor/vue/dist/vue.min.js"></script>
-	<script type="text/javascript" src="vendor/requirejs/require.js"></script>
-	<script type="text/javascript" src="vendor/jquery/dist/jquery.min.js"></script>
-	<script type="text/javascript" src="vendor/jquery.tap/jquery.tap.min.js"></script>
-	<script type="text/javascript" src="vendor/snapjs/snap.min.js"></script>
-	<script type="text/javascript" src="vendor/history.js/scripts/bundled/html4+html5/jquery.history.js"></script>
+	<script type="text/javascript" src="cordova.js"></script>
+	<script type="text/javascript" src="vendor/bower/vue/dist/vue.min.js"></script>
+	<script type="text/javascript" src="vendor/bower/requirejs/require.js"></script>
+	<script type="text/javascript" src="vendor/bower/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="vendor/nombower/jquery.tap/jquery.tap.min.js"></script>
+	<script type="text/javascript" src="vendor/bower/snapjs/snap.min.js"></script>
+	<script type="text/javascript" src="vendor/bower/history.js/scripts/bundled/html4+html5/jquery.history.js"></script>
 
 	<!-- CORE SCRIPTS -->
 	<script type="text/javascript" src="assets/js/caviar.js"></script>

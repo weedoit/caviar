@@ -1,6 +1,3 @@
-!src/vendor
-src/vendor/**
-!src/vendor/jquery.tap
 logs
 *.log
 *.DS_Store
@@ -10,4 +7,4 @@ pids
 .grunt
 build
 node_modules
-src/core/*.js
+src/vendor/bower/

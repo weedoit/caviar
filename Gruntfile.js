@@ -107,16 +107,7 @@ module.exports = function(grunt) {
 				options: {
 					interrupt: true,
 				}
-			},
-
-			vendors: {
-				files: 'src/vendors/**',
-				tasks: ['bower_concat'],
-				options: {
-					interrupt: true,
-				}
-			}
-			
+			}			
 		}
 	});
 
