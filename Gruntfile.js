@@ -4,35 +4,6 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 
-		coffee: {
-			core: {
-				expand: true,
-				flatten: true,
-				cwd: 'src/core/',
-				src: ['**.coffee'],
-				dest: 'src/core/',
-				ext: '.js'
-			},
-
-			controllers: {
-				expand: true,
-    			flatten: true,
-				cwd: 'src/app/controllers/',
-			    src: ['*.coffee'],
-			    dest: 'src/app/controllers/',
-			    ext: '.js'
-			},
-
-			models: {
-				expand: true,
-				flatten: true,
-				cwd: 'src/app/models/',
-				src: ['*.coffee'],
-				dest: 'src/app/models/',
-				ext: '.js'
-			}
-		},
-
 		copy: {
 			assets: {
 				expand: true,
@@ -90,22 +61,6 @@ module.exports = function(grunt) {
 		},
 
 		watch: {
-			coffee: {
-				files: 'src/app/**/*.coffee',
-				tasks: ['coffee:controllers', 'coffee:models'],
-				options: {
-			    	interrupt: true,
-			    }
-			},
-
-			core_coffee: {
-				files: 'src/core/*.coffee',
-				tasks: ['coffee:core', 'concat:core', 'clean:js'],
-				options: {
-					interrupt: true,
-				}
-			},
-
 			views: {
 				files: 'src/app/views/**',
 				tasks: ['copy:views'],
@@ -114,9 +69,25 @@ module.exports = function(grunt) {
 				}
 			},
 
-			app: {
-				files: 'src/app/**/*.js',
-				tasks: ['concat'],
+			core: {
+				files: 'src/core/*.js',
+				tasks: ['concat:core'],
+				options: {
+					interrupt: true,
+				}
+			},
+
+			controllers: {
+				files: 'src/app/controllers/*.js',
+				tasks: ['concat:controllers'],
+				options: {
+					interrupt: true,
+				}
+			},
+
+			models: {
+				files: 'src/app/models/*.js',
+				tasks: ['concat:models'],
 				options: {
 					interrupt: true,
 				}
@@ -149,6 +120,6 @@ module.exports = function(grunt) {
 		}
 	});
 
-	grunt.registerTask('build', ['clean:build', 'coffee', 'copy', 'concat', 'clean:js']);
+	grunt.registerTask('build', ['clean:build', 'copy', 'concat']);
 	grunt.registerTask('default', ['build', 'watch']);
 };
