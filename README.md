@@ -22,13 +22,9 @@ We have no intention to define standards of design for UI. We only want to provi
 ###let's fun?
 
 1. Clone this repo. ```git clone git@github.com:weedoit/caviar.git``` 
-
 2. Make sure that all dependencies were installed.
-
 3. Install all bower dependencies. ```bower install```
-
 4. Start Grunt
-
 5. Begin typing your magical code.
 
 ###need help?
