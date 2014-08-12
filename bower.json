@@ -20,9 +20,9 @@
   ],
   "dependencies": {
     "requirejs": "~2.1.11",
+    "history.js": "*",
     "jquery": ">=2.0.0",
     "vue": "~0.10.3",
-    "fastclick": "~1.0.1",
     "snapjs": "*"
   }
 }

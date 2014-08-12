@@ -4,44 +4,19 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 
-		coffee: {
-			core: {
-				expand: true,
-				flatten: true,
-				cwd: 'src/core/',
-				src: ['**.coffee'],
-				dest: 'src/core/',
-				ext: '.js'
-			},
-
-			controllers: {
-				expand: true,
-    			flatten: true,
-				cwd: 'src/app/controllers/',
-			    src: ['*.coffee'],
-			    dest: 'src/app/controllers/',
-			    ext: '.js'
-			},
-
-			models: {
-				expand: true,
-				flatten: true,
-				cwd: 'src/app/models/',
-				src: ['*.coffee'],
-				dest: 'src/app/models/',
-				ext: '.js'
-			}
-		},
-
 		copy: {
 			assets: {
-				src: 'src/assets/**',
-				dest: 'build/assets/'
+				expand: true,
+				cwd: 'src/assets/',
+				src: '**',
+				dest: 'build/assets'
 			},
 
 			views: {
-				src: 'src/app/views/**',
-				dest: 'build/views/'
+				expand: true,
+				cwd: 'src/app/views/',
+				src: '**',
+				dest: 'build/assets/layouts'
 			},
 
 			vendor: {
@@ -59,15 +34,15 @@ module.exports = function(grunt) {
 
 		concat: {
 			css: {
-				dest: 'build/assets/css/sofastgap.css',
-				src: ['src/assets/css/sofastgap*.css']
+				dest: 'build/assets/css/caviar.css',
+				src: ['src/assets/css/caviar*.css']
 			},
 			css_app: {
 				dest: 'build/assets/css/app.css',
 				src: ['src/assets/css/app*.css']
 			},
 			core: {
-				dest: 'build/assets/js/sofastgap.js',
+				dest: 'build/assets/js/caviar.js',
 				src: ['src/core/*.js']
 			},
 			controllers: {
@@ -80,23 +55,12 @@ module.exports = function(grunt) {
 			}
 		},
 
+		clean: {
+			js: ['src/core/*.js'],
+			build: ['build/**']
+		},
+
 		watch: {
-			coffee: {
-				files: 'src/app/**/*.coffee',
-				tasks: ['coffee:controllers', 'coffee:models'],
-				options: {
-			    	interrupt: true,
-			    }
-			},
-
-			core_coffee: {
-				files: 'src/core/*.coffee',
-				tasks: ['coffee:core', 'concat:core'],
-				options: {
-					interrupt: true,
-				}
-			},
-
 			views: {
 				files: 'src/app/views/**',
 				tasks: ['copy:views'],
@@ -105,9 +69,25 @@ module.exports = function(grunt) {
 				}
 			},
 
-			app: {
-				files: 'src/app/**/*.js',
-				tasks: ['concat'],
+			core: {
+				files: 'src/core/*.js',
+				tasks: ['concat:core'],
+				options: {
+					interrupt: true,
+				}
+			},
+
+			controllers: {
+				files: 'src/app/controllers/*.js',
+				tasks: ['concat:controllers'],
+				options: {
+					interrupt: true,
+				}
+			},
+
+			models: {
+				files: 'src/app/models/*.js',
+				tasks: ['concat:models'],
 				options: {
 					interrupt: true,
 				}
@@ -123,22 +103,14 @@ module.exports = function(grunt) {
 
 			assets: {
 				files: 'src/assets/**',
-				tasks: ['copy:assets'],
+				tasks: ['copy:assets', 'concat:css', 'concat:css_app'],
 				options: {
 					interrupt: true,
 				}
-			},
-
-			vendors: {
-				files: 'src/vendors/**',
-				tasks: ['bower_concat'],
-				options: {
-					interrupt: true,
-				}
-			}
+			}			
 		}
 	});
 
-	grunt.registerTask('build', ['coffee', 'copy', 'concat']);
+	grunt.registerTask('build', ['clean:build', 'copy', 'concat']);
 	grunt.registerTask('default', ['build', 'watch']);
 };

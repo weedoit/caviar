@@ -1,0 +1,25 @@
+button {
+	font-size: 20px;
+	padding: 10px
+}
+
+.app-header {height: 50px; line-height: 50px;position: relative; background: orange;overflow: hidden;box-shadow: 0px 0px 16px 0px #666;}
+.app-header h2.app-header-title{color: #FFF; position: absolute; top: 0; left: 0; text-align: center; height: 50px; line-height: 50px; font-size: 28px;width: 100%;font-weight: normal;}
+.app-header .app-header-menu {height: 50px; width: 50px; position: absolute;top: 0; left: 0; z-index: 300; box-shadow: 1px 0px 0px 0px #e39e0d;}
+.app-header .app-header-menu .menu-line{ background: #FFF; width: 30px; margin: 6px 10px 5px 10px; height: 5px; display: block; border-radius: 3px}
+.app-header .app-header-menu .menu-line:first-child{ margin-top: 11px}
+
+.sign {position: absolute;bottom: 0}
+.sign img {width: 260px}
+
+.main-controller {}
+.main-controller h1 {font-size: 40px;margin:15px; margin-bottom: 20px;color: #777;}
+.main-controller p {font-size: 18px;margin:0 15px; margin-bottom: 20px; line-height: 21px; color: #777;}
+.main-controller .thumb {height: 200px;overflow:hidden;}
+.main-controller .thumb img{width: 100%;margin-top: -50px}
+
+
+
+.main-controller .picture-box {text-align: center;}
+.main-controller .picture-box a{text-decoration: none;}
+.main-controller .picture-box img{width: 128px; height: 128px; margin: 10px; border-radius: 64px}

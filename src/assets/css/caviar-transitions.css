@@ -1,0 +1,38 @@
+/**
+* MAIN CONTENT TRANSITIONS
+*/
+.caviar-transition-in .caviar-ui-controler-instance,
+.caviar-transition-out .caviar-ui-controler-instance {
+	-webkit-transform: translateZ(0);
+	transform: translateZ(0);
+}
+
+.caviar-transition-in .caviar-ui-controler-instance.caviar-active {
+    animation: focus-out 250ms ease 0ms both;
+    -webkit-animation: focus-out 250ms ease 0ms both;
+}
+
+.caviar-transition-out .caviar-ui-controler-instance.caviar-prev {
+    animation: focus-in 250ms ease 300ms both;
+    -webkit-animation: focus-in 250ms ease 300ms both;
+}
+
+@keyframes focus-in {
+	0% {transform:scale(0.9); opacity: 0.9;}
+	100% {transform:scale(1); opacity: 1;} 
+}
+
+@-webkit-keyframes focus-in {
+	0% {-webkit-transform:scale(0.9);opacity: 0.9;}
+	100% {-webkit-transform:scale(1); opacity: 1;}
+}
+
+@keyframes focus-out {
+	0% {transform:scale(1); opacity: 1;} 
+	100% {transform:scale(0.9); opacity: 0.5;}
+}
+
+@-webkit-keyframes focus-out {
+	0% {-webkit-transform:scale(1); opacity: 1;}
+	100% {-webkit-transform:scale(0.9);opacity: 0.5;}
+}

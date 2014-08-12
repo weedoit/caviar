@@ -2,49 +2,50 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<title>[so]fastGap</title>
-	<link rel="stylesheet" href="assets/css/sofastgap.css">
-	<link rel="stylesheet" href="assets/css/app.css">
-	<link rel="stylesheet" href="vendor/snapjs/snap.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<title>Caviar</title>
+	<link rel="stylesheet" href="assets/css/caviar.css">
+	<link rel="stylesheet" href="assets/css/app-main.css">
+	<link rel="stylesheet" href="vendor/bower/snapjs/snap.css">
 </head>
 <body>
-	<div class="snap-drawers">
-		<aside class="side-menu full-height snap-drawer snap-drawer-left">
-			<h2 class="inner-text-shadow">Menu</h2>
-			<ul>
-				<li>
-					<a href="#" class="intent" data-intent="main" data-intent-forResults="false">Main</a>
-				</li>
-				<li>
-					<a href="#" class="intent" data-intent="main#timeline" data-intent-forResults="false">Timeline</a>
-				</li>
-				<li>
-					<a href="#" class="intent" data-intent="contact" data-intent-forResults="false">Contact</a>
-				</li>
-			</ul>
-		</aside>
-		<aside class="side-menu full-height snap-drawer snap-drawer-right">
-			<h2>right</h2>
-		</aside>
-	</div>
+	<div>
+		<div class="side-menu snap-drawers">
+			<!-- MENU -->
+			<menu id="menu">
+				<ul>
+					<li> 
+						<a href="#" class="intent" data-intent-path="main">WTH is Caviar?</a>
+					</li>
+					<li>
+						<a href="#" class="intent" data-intent-path="author">Who made it?</a>
+					</li>
+					<li>
+						<a href="#" class="intent" data-intent-path="help">Help?</a>
+					</li>
+				</ul>
+				<div class="sign">
+					<img src="assets/images/made_by.png">
+				</div>
+			</menu>
+		</div>
 
-	<div id="stage" class="snap-content full-height">
-		<header>
-			<h3>[so]fastGap</h3>
-		</header>
-		<section id="content"></section>
+		<div class="snap-content caviar-stage slide">
+			<div class="caviar-stage-container"></div>
+		</div>
 	</div>
 
 	<!-- LIBS -->
-	<script type="text/javascript" src="vendor/vue/dist/vue.min.js"></script>
-	<script type="text/javascript" src="vendor/fastclick/lib/fastclick.js"></script>
-	<script type="text/javascript" src="vendor/requirejs/require.js"></script>
-	<script type="text/javascript" src="vendor/jquery/dist/jquery.min.js"></script>
-	<script type="text/javascript" src="vendor/snapjs/snap.min.js"></script>
+	<script type="text/javascript" src="cordova.js"></script>
+	<script type="text/javascript" src="vendor/bower/vue/dist/vue.min.js"></script>
+	<script type="text/javascript" src="vendor/bower/requirejs/require.js"></script>
+	<script type="text/javascript" src="vendor/bower/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="vendor/nombower/jquery.tap/jquery.tap.min.js"></script>
+	<script type="text/javascript" src="vendor/bower/snapjs/snap.min.js"></script>
+	<script type="text/javascript" src="vendor/bower/history.js/scripts/bundled/html4+html5/jquery.history.js"></script>
 
 	<!-- CORE SCRIPTS -->
-	<script type="text/javascript" src="assets/js/sofastgap.js"></script>
+	<script type="text/javascript" src="assets/js/caviar.js"></script>
 	<script type="text/javascript" src="assets/js/models.js"></script>
 	<script type="text/javascript" src="assets/js/controllers.js"></script>
 

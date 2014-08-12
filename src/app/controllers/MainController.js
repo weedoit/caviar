@@ -1,22 +1,20 @@
-define('MainController',
-	['SFG', 'Controller', 'Intent', 'IntentManager'], 
-	function (SFG, Controller, Intent, IntentManager) {
-		return SFG.extend(Controller, {
-			transition: null,
+define('MainController', ['Caviar', 'Controller'], function (Caviar, Controller) {
+	return Caviar.extend(Controller, {
 
-			main: function (e) {
-				this.waitForResult(function (data) {
-				});
-			},
+		initialize: function () {
+			this.set('title', '');
+			this.set('description', '');
+		}, 
 
-			timeline: function (intent) {
-				var view = this.getViewByAction('timeline'),
-					button = view.find('button');
+		
+		publicMethods: {
+			foo: function (e) {
+				var i;
 
-				this.on('click', button, function () {
-					intent.result({foo: 'Bar'});
-				});
+				i = new Intent('contact');
+				i.data = e.$data;
+				IntentManager.start(i);
 			}
-		});
-	}
-);
+		}
+	});
+});
