@@ -5,11 +5,11 @@ module.exports = function(grunt) {
 		pkg: grunt.file.readJSON('package.json'),
 
 		copy: {
-			assets: {
+			images: {
 				expand: true,
-				cwd: 'src/assets/',
+				cwd: 'src/assets/images/',
 				src: '**',
-				dest: 'build/assets'
+				dest: 'build/assets/images'
 			},
 
 			views: {
@@ -35,7 +35,11 @@ module.exports = function(grunt) {
 		concat: {
 			css: {
 				dest: 'build/assets/css/caviar.css',
-				src: ['src/assets/css/caviar*.css']
+				src: [
+					'src/assets/css/caviar.css',
+					'src/assets/css/caviar-transitions.css',
+					'src/assets/css/caviar-transitions-*.css',
+				]
 			},
 			css_app: {
 				dest: 'build/assets/css/app.css',
