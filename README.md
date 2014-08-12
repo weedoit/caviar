@@ -3,7 +3,7 @@ keep it simple, elegant and fast!
 
 ###what's this? 
 Caviar is a little framework to create PhoneGap Apps in a simple way and with high performance. 
-It was created following some [FastGap](https://github.com/FastGap/fastgap) project teachinques. Our main concern is to keep everything simple and fast. 
+It was created following some [FastGap](https://github.com/FastGap/fastgap) project techniques. Our main concern is to keep everything simple and fast. 
 
 We have no intention to define standards of design for UI. We only want to provide a flow management system, resources and some other magic.
 
@@ -37,10 +37,10 @@ Take a look in the [docs folder](https://github.com/weedoit/caviar/tree/master/d
 3. Create a new branch with the feature or bug fix.
 4. Send a pull request. 
 
-
 ### goals
 * Write full documentation.
 * Implements models.
+* Add more transtions effects
 * Better view->controller/controller->view integration.
 
 ###license
