@@ -7,4 +7,4 @@ pids
 .grunt
 build
 node_modules
-src/vendor/bower/
+vendor/bower/

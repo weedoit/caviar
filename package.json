@@ -1,32 +1,33 @@
 {
-  "name": "so-fast-gap",
-  "version": "0.0.0",
-  "description": "A template for PhoneGap applications using FastGap's teachings",
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/brunoziie/so-fast-gap"
-  },
-  "keywords": [
-    "app",
-    "phonegap",
-    "template"
-  ],
-  "author": "Bruno Ziiê",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/brunoziie/so-fast-gap/issues"
-  },
-  "homepage": "https://github.com/brunoziie/so-fast-gap",
-  "devDependencies": {
-    "matchdep": "~0.1.2",
-    "grunt": "~0.4.4",
-    "grunt-contrib-watch": "~0.5.3",
-    "grunt-contrib-uglify": "~0.2.4",
-    "grunt-contrib-concat": "~0.3.0",
-    "grunt-contrib-sass": "~0.5.0",
-    "grunt-contrib-coffee": "~0.10.1",
-    "grunt-contrib-copy": "~0.5.0",
-    "grunt-contrib-clean": "~0.5.0"
-  }
+	"name": "Caviar",
+	"version": "0.0.2",
+	"description": "A little framework to create PhoneGap Apps in a simple way and with high performance.",
+	"main": "index.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/weedoit/caviar"
+	},
+	"keywords": [
+		"app",
+		"phonegap",
+		"javascript",
+		"mobile",
+		"framework"
+	],
+	"author": "Bruno Ziiê",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/weedoit/caviar/issues"
+	},
+	"homepage": "https://weedoit.github.io/caviar",
+	"devDependencies": {
+		"matchdep": "~0.1.2",
+		"grunt": "0.4.4",
+		"grunt-contrib-watch": "~0.5.3",
+		"grunt-contrib-uglify": "~0.2.4",
+		"grunt-contrib-concat": "~0.3.0",
+		"grunt-contrib-copy": "~0.5.0",
+		"grunt-contrib-clean": "~0.5.0",
+		"grunt-bump": "0.0.15"
+	}
 }

@@ -1,0 +1,14 @@
+{
+	"js": [
+		"vendor/bower/vue/dist/vue.js",
+		"vendor/bower/requirejs/require.js",
+		"vendor/bower/jquery/dist/jquery.js",
+		"vendor/nombower/jquery.tap/jquery.tap.js",
+		"vendor/bower/snapjs/snap.js",
+		"vendor/bower/history.js/scripts/bundled/html4+html5/jquery.history.js"
+	],
+
+	"css": [
+		"vendor/bower/snapjs/snap.css"
+	]
+}

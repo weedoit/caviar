@@ -17,9 +17,6 @@ button {
 .main-controller p {font-size: 18px;margin:0 15px; margin-bottom: 20px; line-height: 21px; color: #777;}
 .main-controller .thumb {height: 200px;overflow:hidden;}
 .main-controller .thumb img{width: 100%;margin-top: -50px}
-
-
-
 .main-controller .picture-box {text-align: center;}
 .main-controller .picture-box a{text-decoration: none;}
 .main-controller .picture-box img{width: 128px; height: 128px; margin: 10px; border-radius: 64px}

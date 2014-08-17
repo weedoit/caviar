@@ -19,13 +19,6 @@ module.exports = function(grunt) {
 				dest: 'build/assets/layouts'
 			},
 
-			vendor: {
-				expand: true,
-				cwd: 'src/vendor/',
-				src: '**',
-				dest: 'build/vendor/'
-			},
-
 			structure: {
 				src: 'src/app/index.html',
 				dest: 'build/index.html'
@@ -39,59 +32,60 @@ module.exports = function(grunt) {
 					'src/assets/css/caviar.css',
 					'src/assets/css/caviar-transitions.css',
 					'src/assets/css/caviar-transitions-*.css',
+					'src/assets/css/app.css',
+					'src/assets/css/app-*.css'
 				]
 			},
-			css_app: {
-				dest: 'build/assets/css/app.css',
-				src: ['src/assets/css/app*.css']
-			},
-			core: {
-				dest: 'build/assets/js/caviar.js',
-				src: ['src/core/*.js']
-			},
-			controllers: {
-				dest: 'build/assets/js/controllers.js',
-				src: ['src/app/controllers/*.js']
-			},
-			models: {
-				dest: 'build/assets/js/models.js',
-				src: ['src/app/models/*.js']
+
+			vendor: {
+				dest: 'build/assets/css/vendor.css',
+				src: grunt.file.readJSON('vendor.json').css
 			}
 		},
 
 		clean: {
-			js: ['src/core/*.js'],
 			build: ['build/**']
 		},
 
+		uglify: {
+			options: {
+				mangle: false,
+				banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' + '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
+			},
+
+			application: {
+				files: {
+					'build/assets/js/app.min.js': [
+						'src/core/*.js',
+						'src/app/controllers/*.js',
+						'src/app/models/*.js'
+					]
+				}
+			},
+
+			vendor: {
+				files: {
+					'build/assets/js/vendor.min.js': grunt.file.readJSON('vendor.json').js
+				}
+			}
+		},
+
 		watch: {
+			core: {
+				options: {
+					interrupt: true,
+				},
+				files: [
+					'src/core/*.js',
+					'src/app/models/*.js',
+					'src/app/controllers/*.js'
+				],
+				tasks: ['uglify:application']
+			},
+
 			views: {
 				files: 'src/app/views/**',
 				tasks: ['copy:views'],
-				options: {
-					interrupt: true,
-				}
-			},
-
-			core: {
-				files: 'src/core/*.js',
-				tasks: ['concat:core'],
-				options: {
-					interrupt: true,
-				}
-			},
-
-			controllers: {
-				files: 'src/app/controllers/*.js',
-				tasks: ['concat:controllers'],
-				options: {
-					interrupt: true,
-				}
-			},
-
-			models: {
-				files: 'src/app/models/*.js',
-				tasks: ['concat:models'],
 				options: {
 					interrupt: true,
 				}
@@ -105,16 +99,49 @@ module.exports = function(grunt) {
 				}
 			},
 
-			assets: {
-				files: 'src/assets/**',
-				tasks: ['copy:assets', 'concat:css', 'concat:css_app'],
+			css: {
+				files: 'src/assets/css/**',
+				tasks: ['concat:css'],
 				options: {
 					interrupt: true,
 				}
-			}			
+			},
+
+			images: {
+				files: 'src/assets/images/**',
+				tasks: ['copy:images'],
+				options: {
+					interrupt: true,
+				}
+			},
+
+			images: {
+				files: 'src/vendor/**',
+				tasks: ['copy:images'],
+				options: {
+					interrupt: true,
+				}
+			}
+		},
+
+		bump: {
+			options: {
+				files: ['package.json'],
+				updateConfigs: [],
+				commit: true,
+				commitMessage: 'Release v%VERSION%',
+				commitFiles: ['package.json'],
+				createTag: true,
+				tagName: 'v%VERSION%',
+				tagMessage: 'Version %VERSION%',
+				push: false
+			}
 		}
 	});
 
-	grunt.registerTask('build', ['clean:build', 'copy', 'concat']);
+	grunt.registerTask('release', ['bump']);
+	grunt.registerTask('build', ['clean:build', 'copy', 'concat', 'uglify']);	
 	grunt.registerTask('default', ['build', 'watch']);
 };
+
+
