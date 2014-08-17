@@ -48,12 +48,10 @@ module.exports = function(grunt) {
 		},
 
 		uglify: {
-			options: {
-				mangle: false,
-				banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' + '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
-			},
-
 			application: {
+				options: {
+					banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' + '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
+				},
 				files: {
 					'build/assets/js/app.min.js': [
 						'src/core/*.js',
