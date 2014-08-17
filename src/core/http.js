@@ -1,7 +1,7 @@
 /**
  * XHR module
  * @todo Implements methods get and post without uses jQuery
- * @module Caviar.ControllersInstanceManager
+ * @module Caviar.HTTP
  * @author Bruno Ziiê <http://github.com/brunoziie/>
  */
 define('HTTP', function() {
