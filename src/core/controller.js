@@ -70,18 +70,25 @@ define('Controller', ['IntentManager'], function (IntentManager) {
 		onResume: function () {},
 
 		/**
-		 * @TODO
 		 * Callback called when a controller instance receives data from another
+		 * @param {Mixed} data Data sent by previous controller instance
 		 */
 		onResult: function (data) {},
 
 		/**
 		 * Alias to starts an intent
-		 * @param {Intent}
-		 *
+		 * @param {Intent} intent
 		 */
 		startIntent: function (intent) {
 			return IntentManager.start(intent);
+		},
+
+		/**
+		 * Alias to starts an intent
+		 * @param {Mixed}
+		 */
+		result: function (data) {
+			return IntentManager.result(data);
 		}
 	};
 });

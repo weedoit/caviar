@@ -119,7 +119,6 @@ define('ControllersInstanceManager', ['Caviar', 'UIManager', 'LayoutLoader'], fu
 		destroy: function (key) {
 			var controllerInstance;
 
-
 			controllerInstance = this.get(key);
 			this.unloadResources(controllerInstance);
 			controllerInstance.destroy();

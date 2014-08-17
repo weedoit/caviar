@@ -7,12 +7,13 @@ define(
 	'IntentManager', 
 	['Caviar', 'Intent', 'IntentHistory', 'ControllersInstanceManager', 'UIManager', 'Menu'], 
 	function (Caviar, Intent, IntentHistory, ControllersInstanceManager, UIManager, Menu) {
-	var CURRENT_INDEX, CtrInstanceMgn, INDEX, IntentManager, StateHistory;
+	var CURRENT_INDEX, CtrInstanceMgn, INDEX, IntentManager, StateHistory, result;
 
 	INDEX = 0;
 	CURRENT_INDEX = 0;
 	CtrInstanceMgn = ControllersInstanceManager;
 	StateHistory = History;
+	result = null;
 
 	return IntentManager = {
 		/**
@@ -21,6 +22,30 @@ define(
 		 */
 		getIndex: function () {
 			return INDEX += 1;
+		},
+
+		/**
+		 * Set result data
+		 * @param {Mixed} data
+		 */
+		setResult: function (data) {
+			return result = data;
+		},
+
+		/**
+		 * Get result data
+		 * @return {Mixed}
+		 */
+		getResult: function () {
+			return result;
+		},
+
+		/**
+		 * Clean result data
+		 * @return {void}
+		 */
+		clearResult: function () {
+			return result = null;
 		},
 
 		/**
@@ -93,6 +118,11 @@ define(
 				controllerInstance = prev.getControllerInstance();
 				controllerInstance.onResume();
 
+				if (this.getResult() !== null) {
+					controllerInstance.onResult(this.getResult());
+					this.clearResult();
+				}
+
 				return UIManager.transitionOut(function () {
 					var last = IntentHistory.removeLast();
 					return CtrInstanceMgn.destroy(last.controllerInstanceId);
@@ -102,6 +132,15 @@ define(
 				// Its requires Cordova script included
 				return Caviar.exit();
 			}
+		},
+
+		/**
+		 * Back to previous intent passing data
+		 * @param {Mixed} data 
+		 */
+		result: function (data) {
+			this.setResult(data);
+			return StateHistory.back();
 		},
 
 		/**
