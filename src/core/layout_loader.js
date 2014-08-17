@@ -3,7 +3,7 @@
  * @module Caviar.LayoutLoader
  * @author Bruno Ziiê <http://github.com/brunoziie/>
  */
-define('LayoutLoader', ['Caviar'], function(Caviar) {
+define('LayoutLoader', ['Caviar'], function (Caviar) {
 	var Cache, LayoutLoader;
 
 	Cache = {};
@@ -15,7 +15,7 @@ define('LayoutLoader', ['Caviar'], function(Caviar) {
 		 * @param  {Function} callback       Callback
 		 * @param  {Function} callback.data  Layout content
 		 */
-		load: function(controllerName, callback) {
+		load: function (controllerName, callback) {
 			var filename;
 			filename = controllerName.replace('Controller', '').replace(/([a-z])([A-Z])/g, '$1_$2').toLowerCase();
 			return this.getLayoutFile(filename, callback);
@@ -27,7 +27,7 @@ define('LayoutLoader', ['Caviar'], function(Caviar) {
 		 * @param  {Function} callback      Callback
 		 * @param  {Function} callback.data Layout content	
 		 */
-		getLayoutFile: function(filename, callback) {
+		getLayoutFile: function (filename, callback) {
 			var cached, xmlhttp, path;
 			
 			if (Caviar.runningOnWP()) { 
@@ -46,7 +46,7 @@ define('LayoutLoader', ['Caviar'], function(Caviar) {
 
 			xmlhttp = new XMLHttpRequest();
 
-			xmlhttp.onreadystatechange = function() {
+			xmlhttp.onreadystatechange = function () {
 				if (xmlhttp.readyState == 4) {
 					Cache[path] = xmlhttp.responseText;
 					return callback(xmlhttp.responseText);

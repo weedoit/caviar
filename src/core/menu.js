@@ -3,7 +3,7 @@
  * @module Caviar.Menu
  * @author Bruno Ziiê <http://github.com/brunoziie/>
  */
-define('Menu', ['Caviar', 'Intent', 'IntentManager'], function (Caviar) {
+define('Menu', function (Caviar) {
 	var $doc, snapper;
 
 	$doc = $(document);
@@ -57,6 +57,10 @@ define('Menu', ['Caviar', 'Intent', 'IntentManager'], function (Caviar) {
 				return e.preventDefault();
 			});
 
+			document.addEventListener('backbutton', function () {
+				self.hide();
+			}, false);
+
 			return;
 		},
 
@@ -94,6 +98,14 @@ define('Menu', ['Caviar', 'Intent', 'IntentManager'], function (Caviar) {
 					return this.hide();
 				}
 			}
+		},
+
+		/**
+		 * Check if menu is opened
+		 * @return {Boolean}
+		 */
+		isOpened: function () {
+			return snapper.state().state !== 'closed'
 		}
 	};
 });

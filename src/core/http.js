@@ -4,7 +4,7 @@
  * @module Caviar.HTTP
  * @author Bruno Ziiê <http://github.com/brunoziie/>
  */
-define('HTTP', function() {
+define('HTTP', function () {
 	return {
 		/**
 		 * Alias to jQuery $.get

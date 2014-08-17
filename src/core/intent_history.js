@@ -3,7 +3,7 @@
  * @module Caviar.IntentHistory
  * @author Bruno Ziiê <http://github.com/brunoziie/>
  */
-define('IntentHistory', ['Intent'], function(Intent) {
+define('IntentHistory', ['Intent'], function (Intent) {
 	var IntentHistory, colletion;
 	colletion = [];
 
@@ -12,7 +12,7 @@ define('IntentHistory', ['Intent'], function(Intent) {
 		 * Add an intent in history
 		 * @param {Intent} intent
 		 */
-		add: function(intent) {
+		add: function (intent) {
 			return colletion.push(intent);
 		},
 
@@ -20,7 +20,7 @@ define('IntentHistory', ['Intent'], function(Intent) {
 		 * Return current intent or null if not have intent started
 		 * @return {Intent}
 		 */
-		getCurrent: function() {
+		getCurrent: function () {
 			return colletion[colletion.length - 1] || null;
 		},
 
@@ -28,7 +28,7 @@ define('IntentHistory', ['Intent'], function(Intent) {
 		 * Return previous intent or null if not exists
 		 * @return {Intent}
 		 */
-		getPrev: function() {
+		getPrev: function () {
 			return colletion[colletion.length - 2] || null;
 		},
 
@@ -36,7 +36,7 @@ define('IntentHistory', ['Intent'], function(Intent) {
 		 * Remove an intent from history
 		 * @param {Intent} intent
 		 */
-		remove: function(intent) {
+		remove: function (intent) {
 			var index;
 			index = colletion.indexOf(intent);
 			if (index > -1) {
@@ -48,7 +48,7 @@ define('IntentHistory', ['Intent'], function(Intent) {
 		 * Remove last intent of history
 		 * @return {Intent}
 		 */
-		removeLast: function() {
+		removeLast: function () {
 			return colletion.pop();
 		},
 
@@ -56,7 +56,7 @@ define('IntentHistory', ['Intent'], function(Intent) {
 		 * Returns full history
 		 * @return {Array}
 		 */
-		all: function() {
+		all: function () {
 			return colletion;
 		},
 
@@ -64,7 +64,7 @@ define('IntentHistory', ['Intent'], function(Intent) {
 		 * Returns history size
 		 * @return {Number}
 		 */
-		count: function() {
+		count: function () {
 			return colletion.length;
 		},
 
@@ -72,7 +72,7 @@ define('IntentHistory', ['Intent'], function(Intent) {
 		 * Clear intents history
 		 * @return {Array}
 		 */
-		clear: function() {
+		clear: function () {
 			return colletion = [];
 		},
 
@@ -80,7 +80,7 @@ define('IntentHistory', ['Intent'], function(Intent) {
 		 * Clear intents history
 		 * @return {Array}
 		 */
-		hasPrev: function() {
+		hasPrev: function () {
 			return colletion.length > 1;
 		}
 	};

@@ -3,7 +3,7 @@
  * @module Caviar
  * @author Bruno Ziiê <http://github.com/brunoziie/>
  */
-define('Caviar', function() {
+define('Caviar', function () {
 	var Caviar, globals, isWP;
 
 	// Applications globals vars
@@ -18,7 +18,7 @@ define('Caviar', function() {
 			 * Get a variable of application global scope
 			 * @param {String} key
 			 */
-			get: function(key) {
+			get: function (key) {
 				return globals[key] || null;
 			},
 
@@ -27,7 +27,7 @@ define('Caviar', function() {
 			 * @param {String} key
 			 * @param {Mixed} value
 			 */
-			set: function(key, value) {
+			set: function (key, value) {
 				return globals[key] = value;
 			}
 		},
@@ -44,13 +44,13 @@ define('Caviar', function() {
 		 * @param  {Mixed}    def        Object or function with override implementation
 		 * @return {Function}
 		 */
-		extend: function(parent, child) {
+		extend: function (parent, child) {
 			var ctor, extended, key, _c, _hasProp, _p;
 			_hasProp = {}.hasOwnProperty;
-			_p = this.isFunction(parent) ? new parent() : parent;
-			_c = this.isFunction(child) ? new child() : child;
-			extended = function() {};
-			ctor = function() {};
+			_p = this.isfunction (parent) ? new parent() : parent;
+			_c = this.isfunction (child) ? new child() : child;
+			extended = function () {};
+			ctor = function () {};
 			ctor.prototype = _p;
 			for (key in _c) {
 				if (_hasProp.call(_c, key)) {
@@ -66,7 +66,7 @@ define('Caviar', function() {
 		 * @param  {Mixed}  arg 
 		 * @return {Boolean}
 		 */
-		isFunction: function(arg) {
+		isFunction: function (arg) {
 			return typeof arg === 'function';
 		},
 
@@ -81,7 +81,7 @@ define('Caviar', function() {
 		/**
 		 * Exit from app
 		 */
-		exit: function() {
+		exit: function () {
 			if (navigator.app) {
 				return navigator.app.exitApp();
 			} else if (navigator.device) {
