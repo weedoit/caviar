@@ -1,5 +1,12 @@
-#Caviar
-keep it simple, elegant and fast!
+<p align="center">
+  <a href="https://weedoit.github.io/caviar">
+    <img src="http://lab.weedo.it/images/caviar-logo.png">
+  </a>
+  <br>
+  <strong>keep it simple, elegant and fast!</strong>
+</p>
+
+---
 
 ###what's this? 
 Caviar is a little framework to create PhoneGap Apps in a simple way and with high performance. 
