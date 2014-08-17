@@ -47,8 +47,8 @@ define('Caviar', function () {
 		extend: function (parent, child) {
 			var ctor, extended, key, _c, _hasProp, _p;
 			_hasProp = {}.hasOwnProperty;
-			_p = this.isfunction (parent) ? new parent() : parent;
-			_c = this.isfunction (child) ? new child() : child;
+			_p = this.isFunction(parent) ? new parent() : parent;
+			_c = this.isFunction(child) ? new child() : child;
 			extended = function () {};
 			ctor = function () {};
 			ctor.prototype = _p;
