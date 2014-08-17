@@ -3,7 +3,10 @@
  * @module Caviar.IntentManager
  * @author Bruno Ziiê <http://github.com/brunoziie/>
  */
-define('IntentManager', ['Caviar', 'Intent', 'IntentHistory', 'ControllersInstanceManager', 'UIManager'], function(Caviar, Intent, IntentHistory, ControllersInstanceManager, UIManager) {
+define(
+	'IntentManager', 
+	['Caviar', 'Intent', 'IntentHistory', 'ControllersInstanceManager', 'UIManager', 'Menu'], 
+	function (Caviar, Intent, IntentHistory, ControllersInstanceManager, UIManager, Menu) {
 	var CURRENT_INDEX, CtrInstanceMgn, INDEX, IntentManager, StateHistory;
 
 	INDEX = 0;
@@ -16,14 +19,14 @@ define('IntentManager', ['Caviar', 'Intent', 'IntentHistory', 'ControllersInstan
 		 * Create a id to identify all single intent on hash url
 		 * @return {Integer}
 		 */
-		getIndex: function() {
+		getIndex: function () {
 			return INDEX += 1;
 		},
 
 		/**
 		 * Bind events from intents
 		 */
-		bindIntentElements: function() {
+		bindIntentElements: function () {
 			var $doc;
 			$doc = $(document);
 
@@ -40,12 +43,18 @@ define('IntentManager', ['Caviar', 'Intent', 'IntentHistory', 'ControllersInstan
 				CURRENT_INDEX = currentIndex;
 			});
 
-			$doc.on('tap', '.caviar-back', function(e) {
-				window.history.back();
+			document.addEventListener('backbutton', function () {
+				if (!Menu.isOpened()) {
+					IntentManager.back();
+				}
+			}, false);
+
+			$doc.on('tap', '.caviar-back', function (e) {
+				StateHistory.back();
 				return e.preventDefault();
 			});
 			
-			return $doc.on('tap', '.intent', function(e) {
+			return $doc.on('tap', '.intent', function (e) {
 				IntentManager.start(new Intent(this));
 				return e.preventDefault();
 			});
@@ -55,17 +64,15 @@ define('IntentManager', ['Caviar', 'Intent', 'IntentHistory', 'ControllersInstan
 		 * Starts a intent
 		 * @param  {Object} intent
 		 */
-		start: function(intent) {
-			var index;
-			index = IntentManager.getIndex();
-
+		start: function (intent) {
 			IntentHistory.add(intent);
-			StateHistory.pushState({index: index}, null, "?state=" + index);
 
 			// Create a new controller instance and load all resources
-			return CtrInstanceMgn.create(intent, function(instanceId) {
+			return CtrInstanceMgn.create(intent, function (instanceId) {
 				if (IntentHistory.hasPrev()) {
-					return UIManager.transitionIn(function() {
+					return UIManager.transitionIn(function () {
+						var index = IntentManager.getIndex();
+						StateHistory.pushState({index: index}, null, '?state=' + index);
 						return IntentManager.clearStack(intent);
 					});
 				} else {
@@ -86,7 +93,7 @@ define('IntentManager', ['Caviar', 'Intent', 'IntentHistory', 'ControllersInstan
 				controllerInstance = prev.getControllerInstance();
 				controllerInstance.onResume();
 
-				return UIManager.transitionOut(function() {
+				return UIManager.transitionOut(function () {
 					var last = IntentHistory.removeLast();
 					return CtrInstanceMgn.destroy(last.controllerInstanceId);
 				});
@@ -119,10 +126,7 @@ define('IntentManager', ['Caviar', 'Intent', 'IntentHistory', 'ControllersInstan
 				}
 
 				IntentHistory.clear();
-				IntentHistory.add(current);
-
-				// Reset pushState
-				return window.history.go((count + 1) * -1);
+				return IntentHistory.add(current);
 			}
 
 			return;

@@ -3,15 +3,16 @@
  * @module Caviar.Bootstrap
  * @author Bruno Ziiê <http://github.com/brunoziie/>
  */
-define('Bootstrap', ['Caviar', 'IntentManager', 'Intent', 'Menu'], function(Caviar, IntentManager, Intent, Menu) {
+define('Bootstrap', ['Caviar', 'IntentManager', 'Intent', 'Menu'], function (Caviar, IntentManager, Intent, Menu) {
 	var Bootstrap;
 
 	return Bootstrap = {
 		/**
 		 * Bootup application
 		 */
-		bootup: function() {
+		bootup: function () {
 			this.initializeMenus();
+			this.configVue();
 			IntentManager.bindIntentElements();
 			return IntentManager.start(new Intent('main'));
 		},
@@ -19,11 +20,20 @@ define('Bootstrap', ['Caviar', 'IntentManager', 'Intent', 'Menu'], function(Cavi
 		/**
 		 * Setup sidebar menus
 		 */
-		initializeMenus: function() {
+		initializeMenus: function () {
 			return Menu.create({
 				element: $('.snap-content')[0], 
 				disable: 'right', 
-				transitionSpeed: 0.1
+				transitionSpeed: 0.2
+			});
+		},
+
+		/**
+		 * Setup Vue.js
+		 */
+		configVue: function () {
+			return Vue.config({
+			    prefix: 'c'
 			});
 		}
 	};

@@ -3,10 +3,10 @@
  * @module Caviar.Intent
  * @author Bruno Ziiê <http://github.com/brunoziie/>
  */
-define('Intent', ['ControllersInstanceManager'], function(ControllersInstanceManager) {
+define('Intent', ['ControllersInstanceManager'], function (ControllersInstanceManager) {
 	var Intent;
 
-	return Intent = (function() {
+	return Intent = (function () {
 		/**
 		 * Constructor
 		 * @param {Object} element DOM Element that calls a intent
@@ -50,7 +50,7 @@ define('Intent', ['ControllersInstanceManager'], function(ControllersInstanceMan
 		 * Mount a intent from a element
 		 * @param  {Object} element DOM Element that calls a intent
 		 */
-		Intent.prototype.parseIntentElement = function(element) {
+		Intent.prototype.parseIntentElement = function (element) {
 			var $element, intentData, intentForResult;
 			$element = $(element);
 			intentData = $element.data('intent-data') || {};
@@ -63,8 +63,8 @@ define('Intent', ['ControllersInstanceManager'], function(ControllersInstanceMan
 		/**
 		 * Parse controller name
 		 */
-		Intent.prototype.parseControllerName = function(intentPath) {
-			this.controller = intentPath.replace(/^([a-z])|_([a-z])/g, function($1) {
+		Intent.prototype.parseControllerName = function (intentPath) {
+			this.controller = intentPath.replace(/^([a-z])|_([a-z])/g, function ($1) {
 				return $1.toUpperCase();
 			}).replace(/(\s|_)/, '') + 'Controller';
 		};
@@ -73,7 +73,7 @@ define('Intent', ['ControllersInstanceManager'], function(ControllersInstanceMan
 		 * Returns a controller instance 
 		 * @return {Object}
 		 */
-		Intent.prototype.getControllerInstance = function() {
+		Intent.prototype.getControllerInstance = function () {
 			return ControllersInstanceManager.get(this.controllerInstanceId);
 		};
 
