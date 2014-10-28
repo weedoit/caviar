@@ -111,14 +111,6 @@ module.exports = function(grunt) {
 				options: {
 					interrupt: true,
 				}
-			},
-
-			images: {
-				files: 'src/vendor/**',
-				tasks: ['copy:images'],
-				options: {
-					interrupt: true,
-				}
 			}
 		},
 
