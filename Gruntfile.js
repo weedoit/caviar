@@ -7,20 +7,20 @@ module.exports = function(grunt) {
 		copy: {
 			images: {
 				expand: true,
-				cwd: 'src/assets/images/',
+				cwd: 'app/assets/images/',
 				src: '**',
 				dest: 'build/assets/images'
 			},
 
 			views: {
 				expand: true,
-				cwd: 'src/app/views/',
+				cwd: 'app/views/',
 				src: '**',
 				dest: 'build/assets/layouts'
 			},
 
 			structure: {
-				src: 'src/app/index.html',
+				src: 'app/index.html',
 				dest: 'build/index.html'
 			}
 		},
@@ -29,11 +29,9 @@ module.exports = function(grunt) {
 			css: {
 				dest: 'build/assets/css/caviar.css',
 				src: [
-					'src/assets/css/caviar.css',
-					'src/assets/css/caviar-transitions.css',
-					'src/assets/css/caviar-transitions-*.css',
-					'src/assets/css/app.css',
-					'src/assets/css/app-*.css'
+					'app/assets/css/caviar.css',
+					'app/assets/css/app.css',
+					'app/assets/css/app-*.css'
 				]
 			},
 
@@ -54,9 +52,9 @@ module.exports = function(grunt) {
 				},
 				files: {
 					'build/assets/js/app.min.js': [
-						'src/core/*.js',
-						'src/app/controllers/*.js',
-						'src/app/models/*.js'
+						'core/*.js',
+						'app/controllers/*.js',
+						'app/models/*.js'
 					]
 				}
 			},
@@ -74,15 +72,15 @@ module.exports = function(grunt) {
 					interrupt: true,
 				},
 				files: [
-					'src/core/*.js',
-					'src/app/models/*.js',
-					'src/app/controllers/*.js'
+					'core/*.js',
+					'app/models/*.js',
+					'app/controllers/*.js'
 				],
 				tasks: ['uglify:application']
 			},
 
 			views: {
-				files: 'src/app/views/**',
+				files: 'app/views/**',
 				tasks: ['copy:views'],
 				options: {
 					interrupt: true,
@@ -90,7 +88,7 @@ module.exports = function(grunt) {
 			},
 
 			structure: {
-				files: 'src/app/index.html',
+				files: 'app/index.html',
 				tasks: ['copy:structure'],
 				options: {
 					interrupt: true,
@@ -98,7 +96,7 @@ module.exports = function(grunt) {
 			},
 
 			css: {
-				files: 'src/assets/css/**',
+				files: 'app/assets/css/**',
 				tasks: ['concat:css'],
 				options: {
 					interrupt: true,
@@ -106,7 +104,7 @@ module.exports = function(grunt) {
 			},
 
 			images: {
-				files: 'src/assets/images/**',
+				files: 'app/assets/images/**',
 				tasks: ['copy:images'],
 				options: {
 					interrupt: true,
