@@ -1,0 +1,15 @@
+.sign {position: absolute;bottom: 0}
+.sign img {width: 260px}
+
+.caviar-ui-controler-instance {background: #2C3039}
+.main-controller .content h1 {font-size: 40px;margin:15px; margin-bottom: 20px;color: #fff;}
+.main-controller .content p {font-size: 18px;margin:0 15px; margin-bottom: 20px; line-height: 21px; color: #fff;}
+.main-controller .content .thumb {height: 250px;width: 100%;margin-top: -125px;position: absolute;top:50%;text-align: center;}
+.main-controller .content .thumb img{height: 250px;}
+.main-controller .content .thumb .legend {font-size: 18px;color: #fff;display: block}
+.main-controller .content .picture-box {text-align: center;}
+.main-controller .content .picture-box a{text-decoration: none;}
+.main-controller .content .picture-box img{width: 128px; height: 128px; margin: 10px; border-radius: 64px}
+
+input {font-size: 20px; padding: 10px }
+button {font-size: 20px; padding: 10px }
