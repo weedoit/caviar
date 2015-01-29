@@ -52,7 +52,7 @@ define('Menu', function (Caviar) {
 				e.preventDefault();
 			});
 
-			$doc.on('tap', '.side-menu .intent', function (e) {
+			$doc.on('tap', '.intent', function (e) {
 				self.hide();
 				e.preventDefault();
 			});
