@@ -42,4 +42,5 @@ table {border-collapse: collapse; border-spacing: 0;}
 .caviar-ui-controler-instance.caviar-active {display: block; -webkit-transform: translateX(0); transform: translateX(0); z-index: 2000;}
 
 .caviar-ui-controler-instance.caviar-standby,
+.caviar-ui-controler-instance.caviar-hidden,
 .caviar-ui-controler-instance.caviar-dead {display: none;}

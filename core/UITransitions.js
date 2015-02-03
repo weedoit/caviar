@@ -154,7 +154,7 @@ define('UITransitions', function () {
 			// The callback of the last item of sequence is overloaded to
 			// process the rest of queue and toogle some CSS classes in views
 			lastAnimation.options.complete = function () {
-				$active.removeClass('caviar-active').addClass('caviar-backgrounded');
+				$active.removeClass('caviar-active').addClass('caviar-backgrounded').addClass('caviar-hidden');
 				$next.removeClass('caviar-next').addClass('caviar-active');
 				callback();
 				_cb();
@@ -172,17 +172,23 @@ define('UITransitions', function () {
 		 * @param  {Function} callback Callback called when all itens of sequence was done.
 		 */
 		transitionOut: function (active, prev, effect, callback) {
-			var $active, $prev, $animationSequence, lastAnimation, _cb;
+			var $active, $prev, $animationSequence, lastAnimation, firstAnimation, _cb;
 
 			$active = $(active);
 			$prev = $(prev);
 
 			animationSequence = registeredAnimations[effect].transitionOut($active, $prev);
 			lastAnimation = animationSequence[animationSequence.length - 1];
+			firstAnimation = animationSequence[0];
 
 			_cb = (typeof lastAnimation.options.complete === 'function')
 				? lastAnimation.options.complete
 				: function () {};
+
+
+			firstAnimation.options.begin = function () {
+				$prev.removeClass('caviar-hidden');
+			};
 
 			// The callback of the last item of sequence is overloaded to
 			// process the rest of queue and toogle some CSS classes in views
