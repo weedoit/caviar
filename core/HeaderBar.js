@@ -3,8 +3,8 @@
  * @module Caviar.HeaderBar
  * @author Bruno Ziiê <http://github.com/brunoziie/>
  */
-define('HeaderBar', function (DependParam) {
-	var HeaderBar, onResizeHandler, bindWindowResize, injectStyle, NAVBAR_HEIGHT, $body, injectedStyles;
+define('HeaderBar', function () {
+	var HeaderBar, onResizeHandler, bindWindowResize, injectStyle, NAVBAR_HEIGHT, $body, getOrientation, injectedStyles;
 
 	/**
 	 * Header bar height
@@ -27,17 +27,22 @@ define('HeaderBar', function (DependParam) {
 		landscape: false
 	};
 
+	getOrientation = function () {
+		var viewPortWidth, viewPortHeight, orientation;
+
+		viewPortWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+		viewPortHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+
+		return (viewPortWidth > viewPortHeight) ? 'landscape' : 'portrait';
+	};
+
 	/**
 	 * On window resize event handler
 	 * @param  {Object} e Event data
 	 * @return void
 	 */
 	onResizeHandler = function (e) {
-		var viewPortWidth, viewPortHeight, orientation;
-
-		viewPortWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-		viewPortHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-		orientation = (viewPortWidth > viewPortHeight) ? 'landscape' : 'portrait';
+		var orientation = getOrientation();
 
 		// Some devices has different sizes when alternate orientation
 		if (injectedStyles[orientation] === false) {
@@ -63,6 +68,8 @@ define('HeaderBar', function (DependParam) {
 	injectStyle = function (orientation) {
 		var viewPortHeight, rule;
 		
+		orientation = orientation || getOrientation();
+
 		viewPortHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 		injectedStyles[orientation] = true;
 
