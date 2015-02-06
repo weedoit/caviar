@@ -80,7 +80,15 @@ define(
 			});
 			
 			return $doc.on('tap', '.intent', function (e) {
-				IntentManager.start(new Intent(this));
+				if (!Menu.isOpened()) {
+					IntentManager.start(new Intent(this));
+				} else {
+					var that = this;
+					setTimeout(function () {
+						IntentManager.start(new Intent(that));
+					}, 200);
+				}
+
 				return e.preventDefault();
 			});
 		},
