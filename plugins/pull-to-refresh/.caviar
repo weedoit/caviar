@@ -1,0 +1,19 @@
+{
+    "name": "Pull To Refresh",
+    "version": "0.0.1",
+    "repo": "https://github.com/weedoit/caviar",
+    "description": "",
+    "authors": [
+        "brunoziie <eu@brunoziie.com>"
+    ],
+
+    "assets": {
+        "js": [
+            "vendor/hammer.1.1.3.min.js",
+            "index.js"
+        ],
+        "css": [
+            "styles.css"
+        ]
+    }
+}

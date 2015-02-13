@@ -4,10 +4,9 @@
  * @author Bruno Ziiê <http://github.com/brunoziie/>
  */
 define('UIManager', ['Caviar', 'UITransitions'], function (Caviar, UITransitions) {
-	var $stage, ANIMATIONS_EVENTS, UIManager;
+	var $stage, UIManager;
 	
 	$stage = $('.caviar-stage');
-	ANIMATIONS_EVENTS = 'webkitAnimationEnd oanimationend msAnimationEnd animationend';
 	
 	return UIManager = {
 		/**

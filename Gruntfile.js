@@ -1,4 +1,33 @@
 module.exports = function(grunt) {
+	var PLUGINS = {
+			JS: [],
+			CSS: []
+		};
+
+	// Load plugins assets list
+	(function() {
+		var readJSON = grunt.file.readJSON,
+			list = readJSON('plugins.json') || [],
+			len = list.length,
+			plugin,
+			cur, 
+			x;
+
+		for (x = 0; x < len; x += 1) {
+			cur = list[x];
+			plugin = readJSON('plugins/' + cur + '/.caviar');
+
+			plugin.assets.js.map(function (file) {
+				PLUGINS.JS.push('plugins/' + cur + '/' + file);
+			});
+
+			plugin.assets.css.map(function (file) {
+				PLUGINS.CSS.push('plugins/' + cur + '/' + file);
+			});
+		}
+
+	})();
+
 	require("matchdep").filterDev("grunt-*").forEach(grunt.loadNpmTasks);
 
 	grunt.initConfig({
@@ -28,11 +57,10 @@ module.exports = function(grunt) {
 		concat: {
 			css: {
 				dest: 'build/assets/css/caviar.css',
-				src: [
-					'app/assets/css/caviar.css',
-					'app/assets/css/app.css',
-					'app/assets/css/app-*.css'
-				]
+				src: ['app/assets/css/caviar.css'].concat(
+					PLUGINS.CSS,
+					['app/assets/css/app.css', 'app/assets/css/app-*.css']
+				)
 			},
 
 			vendor: {
@@ -51,11 +79,10 @@ module.exports = function(grunt) {
 					banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' + '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
 				},
 				files: {
-					'build/assets/js/app.min.js': [
-						'core/*.js',
-						'app/controllers/*.js',
-						'app/models/*.js'
-					]
+					'build/assets/js/app.min.js': ['core/*.js'].concat(
+						PLUGINS.JS,
+						['app/controllers/*.js', 'app/models/*.js']
+					)
 				}
 			},
 
@@ -79,6 +106,14 @@ module.exports = function(grunt) {
 				tasks: ['uglify:application']
 			},
 
+			plugins: {
+				files: PLUGINS.JS,
+				tasks: ['uglify:application'],
+				options: {
+					interrupt: true,
+				}
+			},
+
 			views: {
 				files: 'app/views/**',
 				tasks: ['copy:views'],
@@ -97,6 +132,14 @@ module.exports = function(grunt) {
 
 			css: {
 				files: 'app/assets/css/**',
+				tasks: ['concat:css'],
+				options: {
+					interrupt: true,
+				}
+			},
+
+			css_plugins: {
+				files: PLUGINS.CSS,
 				tasks: ['concat:css'],
 				options: {
 					interrupt: true,

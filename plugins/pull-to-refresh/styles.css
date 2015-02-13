@@ -1,0 +1,11 @@
+/* Pull to refresh */
+
+.caviar-ptr {
+    -webkit-backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    overflow-y:auto;
+}
+
+.caviar-ptr .loader {z-index:1;position: absolute;-webkit-transform: translateX(0); transform: translateX(0);}
+.caviar-ptr .surface {z-index: 32;position: absolute;webkit-transform: translateX(0); transform: translateX(0);}
+.caviar-ptr.loading .surface{transition: all .25s ease;}
