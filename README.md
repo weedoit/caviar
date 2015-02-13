@@ -20,6 +20,7 @@ We have no intention to define standards of design for UI. We only want to provi
 * [**History.js**](https://github.com/browserstate/history.js): History.js gracefully supports the HTML5 History/State APIs.
 * [**Vue.js**](https://github.com/jakiestfu/Snap.js/):  Intuitive, Fast and Composable MVVM for building interactive interfaces.
 * [**Snap.JS**](https://github.com/jakiestfu/Snap.js/): A Library for creating beautiful mobile shelfs in Javascript.
+* [**Velocity**](http://velocityjs.org/): Accelerated JavaScript animation.
 
 ###dependencies
 * [**node.js**](http://nodejs.org/)

@@ -1,7 +1,8 @@
 {
-  "name": "so-fast-gap",
+  "name": "Caviar",
   "version": "0.0.0",
-  "homepage": "https://github.com/brunoziie/so-fast-gap",
+  "homepage": "https://github.com/weedoit/caviar",
+  "description": "A little framework to create Cordova Apps in a simple way and with high performance.",
   "authors": [
     "brunoziie <eu@brunoziie.com>"
   ],

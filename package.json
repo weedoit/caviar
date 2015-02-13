@@ -1,7 +1,7 @@
 {
 	"name": "Caviar",
 	"version": "0.0.32",
-	"description": "A little framework to create PhoneGap Apps in a simple way and with high performance.",
+	"description": "A little framework to create Cordova Apps in a simple way and with high performance.",
 	"main": "index.js",
 	"repository": {
 		"type": "git",
