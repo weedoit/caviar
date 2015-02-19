@@ -59,7 +59,6 @@ define('Caviar', function () {
 
 			for (key in _c) {
 				if (_hasProp.call(_c, key)) {
-					console.log(_c[key]);
 					extended.prototype[key] = _c[key];
 				}
 			}
