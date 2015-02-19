@@ -46,18 +46,24 @@ define('Caviar', function () {
 		 */
 		extend: function (parent, child) {
 			var ctor, extended, key, _c, _hasProp, _p;
+			
 			_hasProp = {}.hasOwnProperty;
 			_p = this.isFunction(parent) ? new parent() : parent;
 			_c = this.isFunction(child) ? new child() : child;
+			
 			extended = function () {};
 			ctor = function () {};
+
 			ctor.prototype = _p;
+			extended.prototype = new ctor();
+
 			for (key in _c) {
 				if (_hasProp.call(_c, key)) {
-					ctor.prototype[key] = _c[key];
+					console.log(_c[key]);
+					extended.prototype[key] = _c[key];
 				}
 			}
-			extended.prototype = new ctor();
+			
 			return extended;
 		},
 
