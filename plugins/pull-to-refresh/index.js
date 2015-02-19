@@ -1,5 +1,5 @@
 define('Plugins/PullToRefresh', function () {
-    return function (element, opts) {
+    return function (wrapper, opts) {
         var onDragStart, onDragDown, onDragEnd, setElementTransform, getElementOffset, ANIMATIONS_EVENTS,
             translateYValue, $h, options, enabled, element;
 
