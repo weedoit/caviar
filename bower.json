@@ -22,8 +22,8 @@
   "dependencies": {
     "history.js": "*",
     "jquery": ">=2.0.0",
-    "vue": "~0.10.3",
     "snapjs": "*",
-    "velocity": "~1.2.1"
+    "velocity": "~1.2.1",
+    "handlebars": "~3.0.0"
   }
 }

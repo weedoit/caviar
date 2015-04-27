@@ -1,13 +1,14 @@
 {
 	"js": [
-		"vendor/bower/vue/dist/vue.js",
-		"vendor/nobower/custom-vue/on-directive.js",
-
+		"vendor/bower/handlebars/handlebars.js",
 		"vendor/bower/velocity/velocity.min.js",
 		"vendor/bower/velocity/velocity.ui.min.js",
 
 		"vendor/bower/jquery/dist/jquery.js",
 		"vendor/nobower/jquery.tap/jquery.tap.js",
+        "vendor/bower/moment/moment.js",
+        "vendor/bower/moment/locale/pt-br.js",
+        "vendor/bower/imgcache.js/js/imgcache.js",
 		
 		"vendor/bower/snapjs/snap.js",
 		"vendor/bower/history.js/scripts/bundled/html4+html5/jquery.history.js",

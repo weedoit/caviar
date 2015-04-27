@@ -8,9 +8,13 @@
 	</header>
 
 	<section class="content">
-		<div class="thumb">
-			<img src="assets/images/caviar-brand.png" alt="brand">
-			<span class="legend">Let's start to create something cool?</span>
-		</div>
+		@section('content')
+			<div class="thumb">
+				@section('thumb')
+					<img src="assets/images/caviar-brand.png" alt="brand">
+					<span class="legend">Let's start to create something cool?</span>
+				@endsection
+			</div>
+		@endsection
 	</section>
 </div>

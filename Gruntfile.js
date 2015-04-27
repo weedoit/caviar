@@ -25,7 +25,6 @@ module.exports = function(grunt) {
 				PLUGINS.CSS.push('plugins/' + cur + '/' + file);
 			});
 		}
-
 	})();
 
 	require("matchdep").filterDev("grunt-*").forEach(grunt.loadNpmTasks);
@@ -34,6 +33,13 @@ module.exports = function(grunt) {
 		pkg: grunt.file.readJSON('package.json'),
 
 		copy: {
+			fonts: {
+				expand: true,
+				cwd: 'app/assets/fonts/',
+				src: '**',
+				dest: 'build/assets/fonts'
+			},
+
 			images: {
 				expand: true,
 				cwd: 'app/assets/images/',
@@ -76,10 +82,12 @@ module.exports = function(grunt) {
 		uglify: {
 			application: {
 				options: {
-					banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' + '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
+                    sourceMap: 'build/assets/js/app.min.js.map',
+                    sourceMappingURL: 'app.min.js.map',
+                    banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' + '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
 				},
 				files: {
-					'build/assets/js/app.min.js': ['core/*.js'].concat(
+					'build/assets/js/app.min.js': ['core/*.js', 'core/db/*.js'].concat(
 						PLUGINS.JS,
 						['app/controllers/*.js', 'app/models/*.js']
 					)
@@ -87,6 +95,10 @@ module.exports = function(grunt) {
 			},
 
 			vendor: {
+				options: {
+                    sourceMap: 'build/assets/js/vendor.min.js.map',
+                    sourceMappingURL: 'vendor.min.js.map'
+				},
 				files: {
 					'build/assets/js/vendor.min.js': grunt.file.readJSON('vendor.json').js
 				}
@@ -100,6 +112,7 @@ module.exports = function(grunt) {
 				},
 				files: [
 					'core/*.js',
+					'core/db/*.js',
 					'app/models/*.js',
 					'app/controllers/*.js'
 				],
@@ -174,5 +187,3 @@ module.exports = function(grunt) {
 	grunt.registerTask('build', ['clean:build', 'copy', 'concat', 'uglify']);	
 	grunt.registerTask('default', ['build', 'watch']);
 };
-
-
