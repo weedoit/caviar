@@ -75,7 +75,7 @@ define('Intent', ['ControllersInstanceManager'], function (ControllersInstanceMa
 		Intent.prototype.parseControllerName = function (intentPath) {
 			this.controller = intentPath.replace(/^([a-z])|_([a-z])/g, function ($1) {
 				return $1.toUpperCase();
-			}).replace(/(\s|_)/, '') + 'Controller';
+			}).replace(/(\s|_)/g, '') + 'Controller';
 		};
 
 		/**
