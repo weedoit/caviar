@@ -9,7 +9,7 @@
 ---
 
 ###what's this? 
-Caviar is a little framework to create PhoneGap Apps in a simple way and with high performance. 
+Caviar is a little framework to create Cordova Apps in a simple way and with high performance. 
 It was created following some [FastGap](https://github.com/FastGap/fastgap) project techniques. Our main concern is to keep everything simple and fast. 
 
 We have no intention to define standards of design for UI. We only want to provide a flow management system, resources and some other magic.
@@ -18,7 +18,6 @@ We have no intention to define standards of design for UI. We only want to provi
 * [**jQuery**](http://jquery.com/): The Write Less, Do More, JavaScript Library.
 * [**RequireJS**](http://requirejs.org/): A JavaScript file and module loader.
 * [**History.js**](https://github.com/browserstate/history.js): History.js gracefully supports the HTML5 History/State APIs.
-* [**Vue.js**](https://github.com/jakiestfu/Snap.js/):  Intuitive, Fast and Composable MVVM for building interactive interfaces.
 * [**Snap.JS**](https://github.com/jakiestfu/Snap.js/): A Library for creating beautiful mobile shelfs in Javascript.
 * [**Velocity**](http://velocityjs.org/): Accelerated JavaScript animation.
 
@@ -48,8 +47,8 @@ Take a look in the [docs folder](https://github.com/weedoit/caviar/tree/master/d
 ### goals
 * Write full documentation.
 * Implements models.
-* Add more transtions effects
-* Better view->controller/controller->view integration.
+* ~~Add more transtions effects~~
+* ~~Better view->controller/controller->view integration.~~
 
 ###license
 Licensed under [MIT](http://opensource.org/licenses/MIT)
