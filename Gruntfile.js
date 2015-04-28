@@ -87,7 +87,7 @@ module.exports = function(grunt) {
                     banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' + '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
 				},
 				files: {
-					'build/assets/js/app.min.js': ['core/*.js', 'core/db/*.js'].concat(
+					'build/assets/js/app.min.js': ['core/*.js', 'core/db/*.js', 'core/utils/*.js'].concat(
 						PLUGINS.JS,
 						['app/controllers/*.js', 'app/models/*.js']
 					)
@@ -113,6 +113,7 @@ module.exports = function(grunt) {
 				files: [
 					'core/*.js',
 					'core/db/*.js',
+					'core/utils/*.js',
 					'app/models/*.js',
 					'app/controllers/*.js'
 				],

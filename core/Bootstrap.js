@@ -4,7 +4,7 @@
  * @module Caviar.Bootstrap
  * @author Bruno Ziiê <http://github.com/brunoziie/>
  */
-define('Bootstrap', ['Config', 'IntentManager', 'Intent', 'Menu', 'HeaderBar'], function (Config, IntentManager, Intent, Menu, HeaderBar) {
+define('Bootstrap', ['Config', 'IntentManager', 'Intent', 'Menu', 'HeaderBar', 'Utils/TouchStatus'], function (Config, IntentManager, Intent, Menu, HeaderBar) {
     'use strict';
     var Bootstrap;
 
