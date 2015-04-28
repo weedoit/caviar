@@ -78,15 +78,18 @@ define(
 				StateHistory.back();
 				return e.preventDefault();
 			});
-			
-			return $doc.on('tap', '.intent', function (e) {
+
+			return $doc.on('tap', '[intent]', function (e) {
+				var that = this;
+
 				if (!Menu.isOpened()) {
-					IntentManager.start(new Intent(this));
+					IntentManager.start(new Intent(that));
 				} else {
-					var that = this;
 					setTimeout(function () {
 						IntentManager.start(new Intent(that));
 					}, 200);
+
+					Menu.hide();
 				}
 
 				return e.preventDefault();
@@ -138,7 +141,7 @@ define(
 					controllerInstance.onResult(this.getResult());
 					this.clearResult();
 				}
-				
+
 				var last = IntentHistory.removeLast();
 
 				return UIManager.transitionOut(current, prev, function () {
@@ -153,7 +156,7 @@ define(
 
 		/**
 		 * Back to previous intent passing data
-		 * @param {Mixed} data 
+		 * @param {Mixed} data
 		 * @todo: review it, may cause error.
 		 */
 		result: function (data) {

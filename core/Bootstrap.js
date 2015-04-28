@@ -34,11 +34,7 @@ define('Bootstrap', ['Config', 'IntentManager', 'Intent', 'Menu', 'HeaderBar', '
          */
         initializeMenus: function () {
             if (Config.get('hasSidebarMenu')) {
-                return Menu.create({
-                    element: $('.snap-content')[0],
-                    disable: 'right',
-                    transitionSpeed: 0.2
-                });
+                return Menu.create();
             }
         },
 
