@@ -45,10 +45,12 @@ define('Bootstrap', ['Config', 'IntentManager', 'Intent', 'Menu', 'HeaderBar', '
         onDeviceReady: function () {
             this.initializeMenus();
 
+            if (typeof navigator.splashscreen !== 'undefined') {
+                navigator.splashscreen.hide();
+            }
+
             IntentManager.start(new Intent('main'), function () {
-                if (typeof navigator.splashscreen !== 'undefined') {
-                    navigator.splashscreen.hide();
-                }
+                document.body.classList.add('resolved');
             });
         }
     };

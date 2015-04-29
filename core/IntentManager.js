@@ -99,8 +99,9 @@ define(
 		/**
 		 * Starts a intent
 		 * @param  {Object} intent
+		 * @param {Function} callback
 		 */
-		start: function (intent) {
+		start: function (intent, callback) {
 			var currentIntent, nextIntent;
 			nextIntent = intent;
 			IntentHistory.add(nextIntent);
@@ -114,12 +115,22 @@ define(
 					return UIManager.transitionIn(currentIntent, nextIntent, function () {
 						var index = IntentManager.getIndex();
 						StateHistory.pushState({index: index}, null, '?state=' + index);
+
+						if (Caviar.isFunction(callback)) {
+							callback();
+						}
+
 						return IntentManager.clearStack(nextIntent);
 					});
 
 				} else {
 					// Start controller without transitions
-					return UIManager.transitionNone();
+					UIManager.transitionNone();
+
+					if (Caviar.isFunction(callback)) {
+						callback();
+					}
+					return;
 				}
 			});
 		},
@@ -169,6 +180,7 @@ define(
 		 * This happens because understand that if the User back to the main screen of the application 
 		 * it will not have the intention to return to the previous screen.
 		 * @param  {Object} intent Started intent
+		 * @todo Enable to call using controllers differents of MainController
 		 */
 		clearStack: function (intent) {
 			var all, count, current, x, len, cIntent;
