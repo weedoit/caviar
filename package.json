@@ -1,33 +1,34 @@
 {
-	"name": "Caviar",
-	"version": "0.0.32",
-	"description": "A little framework to create Cordova Apps in a simple way and with high performance.",
-	"main": "index.js",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/weedoit/caviar"
-	},
-	"keywords": [
-		"app",
-		"phonegap",
-		"javascript",
-		"mobile",
-		"framework"
-	],
-	"author": "Bruno Ziiê",
-	"license": "MIT",
-	"bugs": {
-		"url": "https://github.com/weedoit/caviar/issues"
-	},
-	"homepage": "https://weedoit.github.io/caviar",
-	"devDependencies": {
-		"matchdep": "~0.1.2",
-		"grunt": "0.4.4",
-		"grunt-contrib-watch": "~0.5.3",
-		"grunt-contrib-uglify": "~0.2.4",
-		"grunt-contrib-concat": "~0.3.0",
-		"grunt-contrib-copy": "~0.5.0",
-		"grunt-contrib-clean": "~0.5.0",
-		"grunt-bump": "0.0.15"
-	}
+  "name": "Caviar",
+  "version": "0.0.32",
+  "description": "A little framework to create Cordova Apps in a simple way and with high performance.",
+  "main": "index.html",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/weedoit/caviar"
+  },
+  "keywords": [
+    "app",
+    "phonegap",
+    "javascript",
+    "mobile",
+    "framework"
+  ],
+  "author": "Bruno Ziiê",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/weedoit/caviar/issues"
+  },
+  "homepage": "https://weedoit.github.io/caviar",
+  "devDependencies": {
+    "event-stream": "^3.3.1",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^2.3.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-cssmin": "^0.1.7",
+    "gulp-typescript": "^2.7.7",
+    "gulp-uglify": "^1.2.0",
+    "gulp-watch": "^4.2.4",
+    "gulp-webserver": "^0.9.1"
+  }
 }

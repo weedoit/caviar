@@ -4,8 +4,9 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 	<title>Caviar</title>
-	<link rel="stylesheet" href="assets/css/caviar.css">
-	<link rel="stylesheet" href="assets/css/vendor.css">
+	<link rel="stylesheet" href="assets/dist/styles/caviar.min.css">
+	<link rel="stylesheet" href="assets/dist/styles/vendor.min.css">
+    <link rel="stylesheet" href="assets/dist/styles/app.min.css">
 </head>
 <body>
 	<div class="side-menu snap-drawers">
@@ -32,19 +33,10 @@
 		<div class="caviar-stage-container"></div>
 	</div>
 
-	<!-- LIBS -->
 	<script type="text/javascript" src="cordova.js"></script>
-	<script type="text/javascript" src="assets/js/vendor.min.js"></script>
-
-	<!-- CORE SCRIPTS -->
-	<script type="text/javascript" src="assets/js/app.min.js"></script>
-
-	<!-- APP BOOT -->
-	<script>
-		// Do the magical
-		require(['Bootstrap'], function (Bootstrap) {
-			Bootstrap.bootup();
-		});
-	</script>
+	<script type="text/javascript" src="assets/dist/scripts/vendor.min.js"></script>
+	<script type="text/javascript" src="assets/dist/scripts/caviar.min.js"></script>
+    <script type="text/javascript" src="assets/dist/scripts/app.min.js"></script>
+    <script type="text/javascript" src="index.js"></script>
 </body>
 </html>

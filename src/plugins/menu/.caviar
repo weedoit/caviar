@@ -1,0 +1,9 @@
+{
+    "name": "Caviar Menu Plugin",
+    "version": "0.0.1",
+    "repo": "https://github.com/weedoit/caviar",
+    "description": "",
+    "authors": [
+        "brunoziie <eu@brunoziie.com>"
+    ]
+}
