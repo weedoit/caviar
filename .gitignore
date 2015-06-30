@@ -8,4 +8,4 @@ pids
 build
 node_modules
 vendor/bower/
-cordova
+./cordova
