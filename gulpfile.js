@@ -1,6 +1,6 @@
 var gulp, uglify, concat, watch, ts, es, vendor, cssmin, autoprefixer, webserver, defaultTaskList, cssApp, cssCore, FOR_RELEASE;
 
-FOR_RELEASE = (process.argv.indexOf('--release') > 0);
+FOR_RELEASE = (process.argv.indexOf('release') > 0);
 vendor = require('./vendor.json');
 gulp = require('gulp');
 uglify = require('gulp-uglify');
@@ -39,7 +39,7 @@ gulp.task('js_app', function () {
 });
 
 gulp.task('js_vendor', function () {
-    var jsfiles = gulp.src(vendor.js).pipe(concat('vendor.min.js'))
+    var jsfiles = gulp.src(vendor.js).pipe(concat('vendor.min.js'));
 
     if (FOR_RELEASE) {
         jsfiles = jsfiles.pipe(uglify());
@@ -92,14 +92,14 @@ gulp.task('css_vendor', function () {
     return cssfiles.pipe(gulp.dest('app/assets/dist/styles'));
 });
 
-gulp.task('webserver', function() {
+gulp.task('webserver', function () {
     gulp.src('app').pipe(webserver({
         open: 'http://localhost:3000',
         port: 3000
     }));
 });
 
-gulp.task('watch', function() {
+gulp.task('watch', function () {
     gulp.watch([
         'src/core/*.js',
         'src/core/**/*.js',
@@ -127,15 +127,16 @@ gulp.task('watch', function() {
     gulp.watch(cssCore, ['css_core']);
 });
 
-gulp.task('release', function () {
-    gulp.src(['app/index.*']).pipe(gulp.dest('cordova/www'));
-    gulp.src(['app/assets/**/*']).pipe(gulp.dest('cordova/www/assets'));
-});
 
 defaultTaskList = [
     'js_core', 'js_app', 'js_vendor', 'css_core', 'css_app', 'css_vendor'
 ].concat(
-    (FOR_RELEASE) ? ['release'] : ['watch', 'webserver']
+    FOR_RELEASE ? [] : ['watch', 'webserver']
 );
+
+gulp.task('release', defaultTaskList, function () {
+    gulp.src(['app/index.*']).pipe(gulp.dest('cordova_app/www'));
+    gulp.src(['app/assets/**/*']).pipe(gulp.dest('cordova_app/www/assets'));
+});
 
 gulp.task('default', defaultTaskList);

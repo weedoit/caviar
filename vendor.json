@@ -9,7 +9,7 @@
         "vendor/bower/moment/moment.js",
         "vendor/bower/moment/locale/pt-br.js",
         "vendor/bower/imgcache.js/js/imgcache.js",
-		
+
 		"vendor/bower/snapjs/snap.js",
 		"vendor/bower/history.js/scripts/bundled/html4+html5/jquery.history.js",
 		"vendor/nobower/custom-requirejs/require.js"

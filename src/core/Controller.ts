@@ -1,4 +1,5 @@
 /// <reference path="Caviar.ts" />
+/// <reference path="StagedView.ts" />
 /// <reference path="defs/CaviarViewEventListener.ts" />
 module Caviar {
     /**
