@@ -67,7 +67,7 @@ define('HeaderBar', function () {
 	 */
 	injectStyle = function (orientation) {
 		var viewPortHeight, rule;
-		
+
 		orientation = orientation || getOrientation();
 
 		viewPortHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);

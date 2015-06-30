@@ -1,5 +1,4 @@
 /// <reference path="defs/handlebars/handlebars.d.ts" />
-
 module Caviar {
     export class View {
         /**

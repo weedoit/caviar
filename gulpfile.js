@@ -13,8 +13,8 @@ autoprefixer = require('gulp-autoprefixer');
 webserver = require('gulp-webserver');
 
 gulp.task('js_core', function () {
-    var jsfiles = gulp.src(['src/core/*.js', 'src/core/**/*.js', 'src/plugins/**/index.js']),
-        tsfiles = gulp.src(['src/core/*.ts', 'src/plugins/**/index.ts']),
+    var jsfiles = gulp.src(['src/core/*.js', 'src/core/**/*.js', 'src/plugins/**/index.js', 'src/helpers/*.js']),
+        tsfiles = gulp.src(['src/core/*.ts', 'src/plugins/**/index.ts', 'src/helpers/*.ts']),
         compiled = tsfiles.pipe(ts({module: 'amd'})),
         join = es.merge(compiled.js, jsfiles).pipe(concat('caviar.min.js'));
 
@@ -26,8 +26,8 @@ gulp.task('js_core', function () {
 });
 
 gulp.task('js_app', function () {
-    var jsfiles = gulp.src(['app/models/*.js', 'app/controllers/*.js',  'app/plugins/**/index.js']),
-        tsfiles = gulp.src(['app/models/*.ts', 'app/controllers/*.ts',  'app/plugins/**/index.ts']),
+    var jsfiles = gulp.src(['app/models/*.js', 'app/controllers/*.js', 'app/plugins/**/index.js', 'app/helpers/*.js']),
+        tsfiles = gulp.src(['app/models/*.ts', 'app/controllers/*.ts', 'app/plugins/**/index.ts', 'app/helpers/*.ts']),
         compiled = tsfiles.pipe(ts({module: 'amd'})),
         join = es.merge(compiled.js, jsfiles).pipe(concat('app.min.js'));
 
@@ -105,16 +105,20 @@ gulp.task('watch', function() {
         'src/core/**/*.js',
         'src/plugins/**/index.js',
         'src/core/*.ts',
-        'src/plugins/**/index.ts'
+        'src/plugins/**/index.ts',
+        'src/helpers/*.ts',
+        'src/helpers/*.js'
     ], ['js_core']);
 
     gulp.watch([
         'app/models/*.js',
         'app/controllers/*.js',
-        'src/plugins/**/index.js',
+        'app/plugins/**/index.js',
         'app/models/*.ts',
         'app/controllers/*.ts',
-        'src/plugins/**/index.ts'
+        'app/plugins/**/index.ts',
+        'app/helpers/*.ts',
+        'app/helpers/*.js'
     ], ['js_app']);
 
     gulp.watch(vendor.js, ['js_vendor']);
