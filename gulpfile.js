@@ -26,7 +26,7 @@ gulp.task('js_core', function () {
 });
 
 gulp.task('js_app', function () {
-    var jsfiles = gulp.src(['app/models/*.js', 'app/controllers/*.js', 'app/plugins/**/index.js', 'app/helpers/*.js']),
+    var jsfiles = gulp.src(['app/models/*.js', 'app/controllers/*.js', 'app/plugins/**/index.js', 'app/helpers/*.js', '.caviar']),
         tsfiles = gulp.src(['app/models/*.ts', 'app/controllers/*.ts', 'app/plugins/**/index.ts', 'app/helpers/*.ts']),
         compiled = tsfiles.pipe(ts({module: 'amd'})),
         join = es.merge(compiled.js, jsfiles).pipe(concat('app.min.js'));
@@ -118,7 +118,8 @@ gulp.task('watch', function () {
         'app/controllers/*.ts',
         'app/plugins/**/index.ts',
         'app/helpers/*.ts',
-        'app/helpers/*.js'
+        'app/helpers/*.js',
+        '.caviar'
     ], ['js_app']);
 
     gulp.watch(vendor.js, ['js_vendor']);
