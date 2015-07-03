@@ -136,8 +136,8 @@ defaultTaskList = [
 );
 
 gulp.task('release', defaultTaskList, function () {
-    gulp.src(['app/index.*']).pipe(gulp.dest('cordova_app/www'));
-    gulp.src(['app/assets/**/*']).pipe(gulp.dest('cordova_app/www/assets'));
+    gulp.src(['app/index.*']).pipe(gulp.dest('.cordova/www'));
+    gulp.src(['app/assets/**/*']).pipe(gulp.dest('.cordova/www/assets'));
 });
 
 gulp.task('default', defaultTaskList);

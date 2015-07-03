@@ -1,5 +1,5 @@
 App.Manifest = {
-    name: "Caviar App",
+    name: "CaviarApp",
     bundle: "com.yourdomain.appname",
     version: "0.0.1",
     debug: true,
