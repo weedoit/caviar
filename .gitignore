@@ -8,4 +8,5 @@ pids
 build
 node_modules
 vendor/bower/
+app/assets/dist/
 .cordova
