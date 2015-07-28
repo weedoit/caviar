@@ -13,8 +13,8 @@ autoprefixer = require('gulp-autoprefixer');
 webserver = require('gulp-webserver');
 
 gulp.task('js_core', function () {
-    var jsfiles = gulp.src(['src/core/*.js', 'src/core/**/*.js', 'src/plugins/**/index.js', 'src/helpers/*.js']),
-        tsfiles = gulp.src(['src/core/*.ts', 'src/plugins/**/index.ts', 'src/helpers/*.ts']),
+    var jsfiles = gulp.src(['src/core/**/*.js', 'src/core/*.js', 'src/plugins/**/index.js', 'src/helpers/*.js']),
+        tsfiles = gulp.src(['src/core/**/*.ts', 'src/core/*.ts', 'src/plugins/**/index.ts', 'src/helpers/*.ts']),
         compiled = tsfiles.pipe(ts({module: 'amd'})),
         join = es.merge(compiled.js, jsfiles).pipe(concat('caviar.min.js'));
 
@@ -101,9 +101,10 @@ gulp.task('webserver', function () {
 
 gulp.task('watch', function () {
     gulp.watch([
-        'src/core/*.js',
         'src/core/**/*.js',
+        'src/core/*.js',
         'src/plugins/**/index.js',
+        'src/core/**/*.ts',
         'src/core/*.ts',
         'src/plugins/**/index.ts',
         'src/helpers/*.ts',
