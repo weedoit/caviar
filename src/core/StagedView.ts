@@ -29,7 +29,7 @@ module Caviar {
          * Object with list of sections presents in the view
          * @type {Object}
          */
-        sections: Object = null;
+        sections: any = null;
 
         /**
          * Constructor
