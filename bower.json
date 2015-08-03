@@ -20,7 +20,6 @@
     "tests"
   ],
   "dependencies": {
-    "history.js": "*",
     "jquery": ">=2.0.0",
     "snapjs": "*",
     "velocity": "~1.2.1",
