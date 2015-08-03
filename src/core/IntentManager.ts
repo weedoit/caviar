@@ -89,7 +89,8 @@ module Caviar.IntentManager {
             that = this;
 
         document.addEventListener('backbutton', function (e) {
-            if (!processEventsStack(onBackEvents)) {
+            if (processEventsStack(onBackEvents)) {
+                IntentManager.back();
                 e.preventDefault();
             }
         }, false);
