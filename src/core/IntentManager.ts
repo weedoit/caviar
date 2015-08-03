@@ -33,6 +33,10 @@ module Caviar.IntentManager {
         return !hasFailed;
     }
 
+    /**
+     * Checks if IntentManager is locked to start new Intents.
+     * @return boolean
+     */
     export function isLocked () : boolean {
         return LOCKED;
     }
