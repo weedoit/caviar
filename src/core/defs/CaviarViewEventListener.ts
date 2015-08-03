@@ -1,6 +1,7 @@
 module Caviar {
     export interface CaviarViewEventListener {
         event: string;
-        callback: EventListener;
+        selector: string;
+        callback: Function;
     }
 }
