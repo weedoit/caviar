@@ -134,14 +134,14 @@ module Caviar.DB {
             return this;
         }
 
-        public limit (limit, offset) {
+        public limit (limit, offset?) {
             this.limitValue = limit;
             this.offsetValue = offset || 0;
 
             return this;
         }
 
-        public orderBy (field, order) {
+        public orderBy (field, order?) {
             if (typeof field === 'string' && typeof order === 'string') {
                 this.orders.push(field + ' ' + order);
             } else if (field.toLowerCase().match(/^([a-z]*)\s(desc|asc)/)) {
@@ -151,7 +151,7 @@ module Caviar.DB {
             return this;
         }
 
-        public where (field, operator, value?) {
+        public where (field, operator?, value?) {
             this.parseConditions.apply(this, arguments);
             return this;
         }

@@ -227,7 +227,7 @@ module Caviar {
          * @param {Mixed}    successCallback@result Model object or null if register not found
          * @param {Function} errorCallback
          */
-        public find (id, successCallback, errorCallback) {
+        public find (id, successCallback?, errorCallback?) {
             var queryBuilder;
 
             queryBuilder = this.getNewQuery().where('id', id);
@@ -244,7 +244,7 @@ module Caviar {
          * @param {Array}    successCallback@results Array of model objects
          * @param {Function} errorCallback
          */
-        public fetch (queryBuilder, successCallback, errorCallback) {
+        public fetch (queryBuilder, successCallback?, errorCallback?) {
             var that = this,
                 query = queryBuilder.renderSelect();
 
@@ -262,7 +262,7 @@ module Caviar {
          * @param {Number}   successCallback@insertId New register id
          * @param {Function} errorCallback
          */
-        public save (data, successCallback, errorCallback) {
+        public save (data, successCallback?, errorCallback?) {
             var diff;
 
             if (data.id && data.id !== '' && data.id !== 0) {
@@ -285,7 +285,7 @@ module Caviar {
          * @param {Function} successCallback
          * @param {Function} errorCallback
          */
-        public saveAll (data, successCallback, errorCallback, forceInsert, forceUpdate) {
+        public saveAll (data, successCallback?, errorCallback?, forceInsert?, forceUpdate?) {
             var that = this;
 
             this.transaction(function (tx) {
@@ -315,7 +315,7 @@ module Caviar {
          * @param {Function} successCallback
          * @param {Function} errorCallback
          */
-        public update (id, data, successCallback, errorCallback) {
+        public update (id, data, successCallback?, errorCallback?) {
             var queryBuilder = this.getNewQuery(),
                 query = queryBuilder.where('id', id).update(data).renderUpdate();
 
@@ -340,7 +340,7 @@ module Caviar {
             return output;
         }
 
-        public syncTable (data, successCallback, errorCallback) {
+        public syncTable (data, successCallback?, errorCallback?) {
             var that, ids, qb, query;
 
             that = this;
@@ -386,7 +386,7 @@ module Caviar {
          * @param {Number}   successCallback@insertId New register id
          * @param {Function} errorCallback
          */
-        public create (data, successCallback, errorCallback) {
+        public create (data, successCallback?, errorCallback?) {
             var queryBuilder = this.getNewQuery(),
                 query = queryBuilder.insert(data).renderInsert();
 
@@ -403,7 +403,7 @@ module Caviar {
          * @param {Function} successCallback
          * @param {Function} errorCallback
          */
-        public destroy (id,  successCallback, errorCallback) {
+        public destroy (id,  successCallback?, errorCallback?) {
             var queryBuilder = this.getNewQuery(),
                 query = queryBuilder.where('id', id).renderDelete();
 
@@ -420,7 +420,7 @@ module Caviar {
          * @param {Function} successCallback
          * @param {Function} errorCallback
          */
-        public destroyAll (ids,  successCallback, errorCallback) {
+        public destroyAll (ids,  successCallback?, errorCallback?) {
             var queryBuilder = this.getNewQuery(),
                 query = queryBuilder.where('id', 'IN', ids).renderDelete();
 
