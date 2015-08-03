@@ -3,6 +3,7 @@
 /// <reference path="IntentHistory.ts" />
 /// <reference path="ControllersInstanceManager.ts" />
 /// <reference path="defs/jquery/jquery.d.ts" />
+/// <reference path="../plugins/menu/index.ts" />
 
 module Caviar {
     /**
@@ -221,7 +222,7 @@ module Caviar {
 
         /**
          * When start a intent with main controller destroy all previous controller instances.
-         * This happens because understand that if the User back to the main screen of the application 
+         * This happens because understand that if the User back to the main screen of the application
          * it will not have the intention to return to the previous screen.
          * @param  {Object} intent Started intent
          * @todo Enable to call using controllers differents of MainController

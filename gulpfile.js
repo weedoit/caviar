@@ -5,6 +5,7 @@ vendor = require('./vendor.json');
 gulp = require('gulp');
 uglify = require('gulp-uglify');
 concat = require('gulp-concat');
+order = require('gulp-order');
 watch = require('gulp-watch');
 ts = require('gulp-typescript');
 es = require('event-stream');
@@ -13,10 +14,22 @@ autoprefixer = require('gulp-autoprefixer');
 webserver = require('gulp-webserver');
 
 gulp.task('js_core', function () {
-    var jsfiles = gulp.src(['src/core/**/*.js', 'src/core/*.js', 'src/plugins/**/index.js', 'src/helpers/*.js']),
-        tsfiles = gulp.src(['src/core/**/*.ts', 'src/core/*.ts', 'src/plugins/**/index.ts', 'src/helpers/*.ts']),
-        compiled = tsfiles.pipe(ts({module: 'amd'})),
-        join = es.merge(compiled.js, jsfiles).pipe(concat('caviar.min.js'));
+    var coreJSFiles = gulp.src(['src/core/**/*.js', 'src/core/*.js']).pipe(concat('core.js')),
+        miscJSFiles = gulp.src(['src/plugins/**/index.js', 'src/helpers/*.js']).pipe(concat('misc.js')),
+        coreTSFiles = gulp.src(['src/core/**/*.ts', 'src/core/*.ts']).pipe(ts({module: 'amd'})).pipe(concat('core.compiled.js')),
+        miscTSFiles = gulp.src(['src/plugins/**/index.ts', 'src/helpers/*.ts']).pipe(ts({module: 'amd'})).pipe(concat('misc.compiled.js')),
+
+        join = es.merge(
+            coreJSFiles,
+            miscJSFiles,
+            coreTSFiles,
+            miscTSFiles
+        ).pipe(order([
+            'core.compiled.js',
+            'core.js',
+            'misc.compiled.js',
+            'misc.js',
+        ])).pipe(concat('caviar.min.js'));
 
     if (FOR_RELEASE) {
         join = join.pipe(uglify());

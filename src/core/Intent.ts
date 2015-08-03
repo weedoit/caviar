@@ -48,6 +48,8 @@ module Caviar {
          *                         intent or string with controller name
          */
         constructor (element: any) {
+            this.data = {};
+
             if (element !== undefined) {
                 if (typeof element === 'string') {
                     this.parseControllerName(element);
@@ -56,8 +58,6 @@ module Caviar {
                     this.caller = element;
                 }
             }
-
-            this.data = {};
         }
 
         /**
@@ -72,7 +72,7 @@ module Caviar {
             transition = element.getAttribute('intent-transition');
 
             if (intentData !== null && (intentData.charAt(0) === '[' || intentData.charAt(0) === '{')) {
-                this.data = JSON.stringify(intentData);
+                this.data = JSON.parse(intentData);
             } else {
                 this.data = {};
             }
