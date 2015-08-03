@@ -1,7 +1,10 @@
 App.Manifest = {
     name: "CaviarApp",
     bundle: "com.yourdomain.appname",
-    version: "0.0.1",
-    debug: true,
-    platforms: []
+    platforms: [],
+    configs: {
+        debug: true,
+        version: "0.0.1",
+        startupController: 'main'
+    }
 };

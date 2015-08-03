@@ -42,10 +42,11 @@ module Caviar.Bootstrap {
      */
     onDeviceReady = function () : void {
         var nav: any = getNavigatorObject();
+        var controller: string = Caviar.Config.get('startupController');
 
         processCallbacksStack();
 
-        IntentManager.start(new Intent('main'), function () {
+        IntentManager.start(new Intent(controller), function () {
             document.body.classList.add('resolved');
 
             if (typeof nav.splashscreen !== 'undefined') {
@@ -56,12 +57,12 @@ module Caviar.Bootstrap {
 
     /**
      * Bootup application
-     * @param {Object} configs Application configs
+     * @param {Object} manifest Application manifest
      * @return {void}
      */
-    export function bootup (configs: Object): void {
+    export function bootup (manifest: any): void {
         var that = this;
-        Config.set(configs, undefined);
+        Config.set(manifest.configs || {});
 
         if (typeof cordova !== 'undefined') {
             document.addEventListener("deviceready", function () {

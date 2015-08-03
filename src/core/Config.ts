@@ -10,6 +10,12 @@ module Caviar {
         version: '0.0.1',
 
         /**
+         * Define the controller that will start application
+         * @type {String}
+         */
+        startupController: 'main',
+
+        /**
          * Enable some debug features
          * @type {String}
          */
@@ -55,7 +61,7 @@ module Caviar {
          * @param {String} key   Config name
          * @param {Mixed}  value Config value
          */
-        static set (key: any, value: any) : void {
+        static set (key: any, value?: any) : void {
             if (typeof key === 'object') {
                 configsSet = Caviar.merge(key, configsSet);
             } else {
