@@ -1,6 +1,7 @@
 /// <reference path="Caviar.ts" />
 /// <reference path="StagedView.ts" />
 /// <reference path="defs/CaviarViewEventListener.ts" />
+/// <reference path="../../src/core/defs/jquery/jquery.d.ts" />
 module Caviar {
     /**
      * Controller superclass.
@@ -32,7 +33,7 @@ module Caviar {
          * Store data used by controller
          * @type {Object}
          */
-        data: Object = null;
+        data: any = null;
 
         /**
          * Get a data stored on controller instance
@@ -110,16 +111,11 @@ module Caviar {
             var view: Element = this.getViewElement(),
                 cb: EventListener;
 
-            cb = function (e) {
-                if (matchSelector(<Element> e.target, selector)) {
-                    callback();
-                }
-            };
-
-            view.addEventListener(event, cb, false);
-
+            $(view).on(<any> event, selector, callback);
+            
             this.eventListeners.push({
                 event: event,
+                selector: selector,
                 callback: cb
             });
         }
@@ -130,13 +126,13 @@ module Caviar {
          */
         public destroyEventListeners () : void {
             var view: Element = this.getViewElement(),
-                len = this.eventListeners.length,
+                len: number = this.eventListeners.length,
                 x: number,
                 cur: CaviarViewEventListener;
 
             for (x = 0; x < len; x += 1) {
                 cur = this.eventListeners[x];
-                view.removeEventListener(cur.event, cur.callback, false);
+                $(view).off(cur.event, cur.selector, <any> cur.callback);
             }
         }
 
