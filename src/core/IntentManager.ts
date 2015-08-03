@@ -13,7 +13,8 @@ module Caviar.IntentManager {
     var resultData: any = null,
         beforeStartIntentEvents: Array<Function> = [],
         onBackEvents: Array<Function> = [],
-        processEventsStack: Function;
+        processEventsStack: Function,
+        LOCKED: boolean = false;
 
     processEventsStack = function (stack: Array<Function>) : boolean {
         var len: number = stack.length,
@@ -30,6 +31,10 @@ module Caviar.IntentManager {
         }
 
         return !hasFailed;
+    }
+
+    export function isLocked () : boolean {
+        return LOCKED;
     }
 
     /**
@@ -76,8 +81,8 @@ module Caviar.IntentManager {
      * Bind events from intents
      */
     export function bindIntentElements () {
-        var $doc;
-        $doc = $(document);
+        var $doc = $(document),
+            that = this;
 
         document.addEventListener('backbutton', function (e) {
             if (!processEventsStack(onBackEvents)) {
@@ -92,6 +97,12 @@ module Caviar.IntentManager {
 
         $doc.on('tap', '[intent]', function (e) {
             var that = this;
+
+            // Don't start new intents if IntentManager is locked.
+            // This avoid that double clicks starts many Intents
+            if (IntentManager.isLocked()) {
+                return;
+            }
 
             if (!Menu.isOpened()) {
                 IntentManager.start(new Intent(that), null);
@@ -118,6 +129,9 @@ module Caviar.IntentManager {
 
         IntentHistory.add(nextIntent);
 
+        // Lock to start new intents
+        LOCKED = true;
+
         // Create a new controller instance and load all resources
         ControllersInstanceManager.create(nextIntent, function (instanceId) {
 
@@ -125,6 +139,8 @@ module Caviar.IntentManager {
                 currentIntent = IntentHistory.getPrev();
 
                 UIManager.transitionIn(currentIntent, nextIntent, function () {
+                    LOCKED = false;
+
                     if (Caviar.isFunction(callback)) {
                         callback();
                     }
@@ -135,6 +151,8 @@ module Caviar.IntentManager {
             } else {
                 // Start controller without transitions
                 UIManager.transitionNone(undefined, nextIntent, function () {
+                    LOCKED = false;
+
                     if (Caviar.isFunction(callback)) {
                         callback();
                     }
@@ -151,6 +169,8 @@ module Caviar.IntentManager {
             prevControllerInstance: Controller,
             activeControllerInstance: Controller,
             prev: Intent;
+
+        LOCKED = false;
 
         if (IntentHistory.hasPrev()) {
             current = IntentHistory.getCurrent();
