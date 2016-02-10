@@ -132,6 +132,10 @@ module Caviar.IntentManager {
         var currentIntent: Intent,
             nextIntent: Intent = intent;
 
+        if (IntentManager.isLocked()) {
+            return;
+        }
+
         IntentHistory.add(nextIntent);
 
         // Lock to start new intents
